@@ -65,7 +65,56 @@ public class Main {
         } else { // if no arguments to main
             kb = new Scanner(System.in); // use keyboard and console
         }
-
+        String word = kb.nextLine();
+        while(word != "quit") {
+        	String[] words = word.split(" ");
+        	if(words[0].equals("show")) {
+        		Critter.displayWorld();
+        	}
+        	else if(words[0].equals("step")) {
+        		if(!words[1].equals(null)) {
+        			int num = Integer.parseInt(words[1]);
+        			for(int i = 0; i < num; i++) {
+                		Critter.worldTimeStep();
+        			}
+        		}
+        		else {
+            		Critter.worldTimeStep();
+        		}
+        	}
+        	else if(words[0].equals("seed")) {
+        		int num = Integer.parseInt(words[1]);
+        		Critter.setSeed(num);
+        	}
+        	else if(words[0].equals("make")) {
+        		if(!words[2].equals(null)) {
+        			int num = Integer.parseInt(words[2]);
+        				for(int i = 0; i < num; i++) {
+        					try {
+								Critter.makeCritter(words[1]);
+							} catch (InvalidCritterException e) {
+								System.out.println("Invalid Critter");
+							}
+        				}
+        			}
+        		else {
+            		try {
+						Critter.makeCritter(words[1]);
+					} catch (InvalidCritterException e) {
+						System.out.println("Invalid Critter");
+					}
+        		}	
+        	}
+        	else if(words[0].equals("stats")) {
+        		try {
+					Critter.getInstances(words[1]);
+				} catch (InvalidCritterException e) {
+					System.out.println("Invalid Critter");
+				}
+        		//**********************************************************************************
+        		System.out.println("STATS"); //TODO: FINISH THIS
+        	}	
+        }
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         

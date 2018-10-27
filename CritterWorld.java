@@ -1,7 +1,7 @@
 package assignment4;
 
 public class CritterWorld {
-    public static Critter[][] world;
+    public Critter[][] world;
 
     public CritterWorld() {
         world = new Critter[Params.world_height][Params.world_width];

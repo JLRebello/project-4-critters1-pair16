@@ -49,13 +49,113 @@ public abstract class Critter {
 	
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
+	protected void setEnergy(int foo) {energy = foo;}
 	
 	private int x_coord;
 	private int y_coord;
 	
-	protected final void walk(int direction) {}
+	protected int getX() {return x_coord;}
+	protected int getY() {return y_coord;}
+	protected void setX(int foo) {x_coord = foo;}
+	protected void setY(int foo) {y_coord = foo;}
 	
-	protected final void run(int direction) {}
+	protected final void walk(int direction) {
+		myWorld.world[this.getY()][this.getX()] = null;
+		if(direction == 0) {
+			if(this.getX() == Params.world_width - 1) {
+				this.setX(0);
+			}
+			else {
+				this.setX(this.getX() + 1);
+			}
+		}
+		else if(direction == 1) {
+			if(this.getX() == Params.world_width - 1) {
+				this.setX(0);
+			}
+			else {
+				this.setX(this.getX()+1);
+			}
+			if(this.getY() == 0) {
+				this.setY(Params.world_height - 1);
+			}
+			else {
+				this.setY(this.getY() - 1);
+			}
+		}
+		else if(direction == 2) {
+			if(this.getY() == 0) {
+				this.setY(Params.world_height - 1);
+			}
+			else {
+				this.setY(this.getY() - 1);
+			}
+		}
+		else if(direction == 3) {
+			if(this.getX() == 0) {
+				this.setX(Params.world_width - 1);
+			}
+			else {
+				this.setX(this.getX()-1);
+			}
+			if(this.getY() == 0) {
+				this.setY(Params.world_height - 1);
+			}
+			else {
+				this.setY(this.getY() - 1);
+			}
+		}
+		else if(direction == 4) {
+			if(this.getX() == 0) {
+				this.setX(Params.world_width - 1);
+			}
+			else {
+				this.setX(this.getX() - 1);
+			}
+		}
+		else if(direction == 5) {
+			if(this.getX() == 0) {
+				this.setX(Params.world_width - 1);
+			}
+			else {
+				this.setX(this.getX()-1);
+			}
+			if(this.getY() == Params.world_height - 1) {
+				this.setY(0);
+			}
+			else {
+				this.setY(this.getY() + 1);
+			}
+		}
+		else if(direction == 6) {
+			if(this.getY() == Params.world_height - 1) {
+				this.setY(0);
+			}
+			else {
+				this.setY(this.getY() + 1);
+			}
+		}
+		else if(direction == 7) {
+			if(this.getX() == Params.world_width - 1) {
+				this.setX(0);
+			}
+			else {
+				this.setX(this.getX()+1);
+			}
+			if(this.getY() == Params.world_height - 1) {
+				this.setY(0);
+			}
+			else {
+				this.setY(this.getY() + 1);
+			}
+		}
+		myWorld.world[this.getY()][this.getX()] = this;
+	}
+	
+	protected final void run(int direction) {
+		this.walk(direction);
+		this.walk(direction);
+	}
 	
 	protected final void reproduce(Critter offspring, int direction) {}
 
@@ -179,6 +279,8 @@ public abstract class Critter {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
 		}
+		//TODO: REMOVE DEAD CRITTERS?
+		//TODO: ENCOUNTERS
 	}
 	
 	public static void displayWorld() {
