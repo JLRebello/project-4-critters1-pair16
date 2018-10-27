@@ -6,7 +6,7 @@ package assignment4;
  * Section 16365
  * Samir Riad
  * SR43888
- * 16360
+ * Section 16360
  * Slip days used: <0>
  * Fall 2018
  */
