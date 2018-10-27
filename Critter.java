@@ -27,7 +27,7 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
 	// added by us
-	private static CritterWorld myWorld = new CritterWorld();
+	public static CritterWorld myWorld = new CritterWorld();
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
@@ -53,14 +53,15 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
-	
+
 	protected int getX() {return x_coord;}
 	protected int getY() {return y_coord;}
 	protected void setX(int foo) {x_coord = foo;}
 	protected void setY(int foo) {y_coord = foo;}
 	
 	protected final void walk(int direction) {  //EDIT THIS WALK!
-		myWorld.world[this.getY()][this.getX()] = null;
+		myWorld.world[this.getY()][this.getX()].remove(this);
+				/////// 	if there are two Craigs, will it remove the right one???????
 		if(direction == 0) {
 			if(this.getX() == Params.world_width - 1) {
 				this.setX(0);
@@ -149,7 +150,7 @@ public abstract class Critter {
 				this.setY(this.getY() + 1);
 			}
 		}
-		myWorld.world[this.getY()][this.getX()] = this;
+		myWorld.world[this.getY()][this.getX()].add(this);		// check if this works!!!!!!!!!!!!!!!
 	}
 	
 	protected final void run(int direction) {
@@ -160,7 +161,7 @@ public abstract class Critter {
 	protected final void reproduce(Critter offspring, int direction) {}
 
 	public abstract void doTimeStep();
-	public abstract boolean fight(String oponent);
+	public abstract boolean fight(String opponent);
 	
 	/**
 	 * create and initialize a Critter subclass.
@@ -267,9 +268,13 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
-		// TODO: Complete this method.
 		population.clear();
 		babies.clear();
+		for(int i = 0; i < Params.world_height; i++) {
+			for(int j = 0; j < Params.world_width; j++) {
+				myWorld.world[i][j].clear();
+			}
+		}
 	}
 	
 	public static void worldTimeStep() {
@@ -279,8 +284,22 @@ public abstract class Critter {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
 		}
-		//TODO: REMOVE DEAD CRITTERS?
-		//TODO: ENCOUNTERS
+		for(int i = 0; i < Params.world_height; i++) {
+			for(int j = 0; j < Params.world_width; j++) {
+				if(myWorld.world[i][j].size() > 1){
+					Critter c1 = (Critter) myWorld.world[i][j].get(0);
+					Critter c2 = (Critter) myWorld.world[i][j].get(1);
+					boolean a = c1.fight(c2.toString());
+					boolean b = c2.fight(c1.toString());
+					if (!a && !b) {
+						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+						myWorld.world[i][j].remove(1);
+					}
+
+										
+				}
+			}
+		}
 	}
 	
 	public static void displayWorld() {
@@ -293,11 +312,17 @@ public abstract class Critter {
 		for(int i = 0; i < Params.world_height; i++) {
 			System.out.print('\n' + "|");
 			for(int j = 0; j < Params.world_width; j++) {
-				if (myWorld.world[i][j] != null)
-					System.out.print(CritterWorld.getSymbol(myWorld.world[i][j]));
+				if (!myWorld.world[i][j].isEmpty())
+					// check if this workssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+					System.out.print(CritterWorld.getSymbol((Critter)myWorld.world[i][j].get(0)));
 				else System.out.print(" ");
 			}
 			System.out.print("|");
 		}
+		System.out.print("\n" + "+");
+		for(int i = 0; i < Params.world_width; i++) {
+			System.out.print("-");
+		}
+		System.out.println("+");
 	}
 }
