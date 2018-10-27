@@ -59,7 +59,7 @@ public abstract class Critter {
 	protected void setX(int foo) {x_coord = foo;}
 	protected void setY(int foo) {y_coord = foo;}
 	
-	protected final void walk(int direction) {
+	protected final void walk(int direction) {  //EDIT THIS WALK!
 		myWorld.world[this.getY()][this.getX()] = null;
 		if(direction == 0) {
 			if(this.getX() == Params.world_width - 1) {

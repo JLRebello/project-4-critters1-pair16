@@ -1,7 +1,8 @@
 package assignment4;
+import java.util.*;
 
 public class CritterWorld {
-    public Critter[][] world;
+	public Critter[][] world;
 
     public CritterWorld() {
         world = new Critter[Params.world_height][Params.world_width];
