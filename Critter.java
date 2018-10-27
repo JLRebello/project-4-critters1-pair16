@@ -26,6 +26,9 @@ public abstract class Critter {
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
+	// added by us
+	private static CritterWorld world = new CritterWorld();
+
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
@@ -186,9 +189,13 @@ public abstract class Critter {
 		}
 		System.out.print("+");
 		for(int i = 0; i < Params.world_height; i++) {
-			for(int j = 0; j< Params.world_width; j++) {
-				
+			System.out.print('\n' + "|");
+			for(int j = 0; j < Params.world_width; j++) {
+				if (world.world[i] != null)
+					System.out.print(CritterWorld.getSymbol(world.world[i][j]));
+				else System.out.print(" ");
 			}
+			System.out.print("|");
 		}
 	}
 }
