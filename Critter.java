@@ -158,7 +158,42 @@ public abstract class Critter {
 		this.walk(direction);
 	}
 	
-	protected final void reproduce(Critter offspring, int direction) {}
+	protected final void reproduce(Critter offspring, int direction) {
+		if(offspring.toString().equals("C")) {
+			Craig newCraig = new Craig();
+			population.add(newCraig);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCraig);
+		}
+		else if(offspring.toString().equals("G")){
+			GodEmperor newGodEmp = new GodEmperor();
+			population.add(newGodEmp);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newGodEmp);
+		}
+		else if(offspring.toString().equals("@")){
+			Algae newAlgae = new Algae();
+			population.add(newAlgae);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newAlgae);
+		}
+		else if(offspring.toString().equals("Y")){
+			Yoshi egg = new Yoshi();
+			population.add(egg);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(egg);
+		}
+		else if(offspring.toString().equals("S")){
+			Squirtle Squirt = new Squirtle();
+			population.add(Squirt);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(Squirt);
+		}
+		else if(offspring.toString().equals("P")){
+			PowerLord newLord = new PowerLord();
+			population.add(newLord);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newLord);
+		}
+		offspring.setX(this.getX());
+		offspring.setY(this.getY());
+		offspring.walk(direction);
+		babies.add(offspring);
+	}
 
 	public abstract void doTimeStep();
 	public abstract boolean fight(String opponent);
@@ -174,6 +209,36 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		if(critter_class_name.equals("Craig")) {
+			Craig newCraig = new Craig();
+			population.add(newCraig);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCraig);
+		}
+		else if(critter_class_name.equals("GodEmperor")){
+			GodEmperor newGodEmp = new GodEmperor();
+			population.add(newGodEmp);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newGodEmp);
+		}
+		else if(critter_class_name.equals("Algae")){
+			Algae newAlgae = new Algae();
+			population.add(newAlgae);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newAlgae);
+		}
+		else if(critter_class_name.equals("Yoshi")){
+			Yoshi egg = new Yoshi();
+			population.add(egg);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(egg);
+		}
+		else if(critter_class_name.equals("Squirtle")){
+			Squirtle Squirt = new Squirtle();
+			population.add(Squirt);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(Squirt);
+		}
+		else if(critter_class_name.equals("PowerLord")){
+			PowerLord newLord = new PowerLord();
+			population.add(newLord);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newLord);
+		}
 	}
 	
 	/**
@@ -184,7 +249,6 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
 		return result;
 	}
 	
@@ -278,7 +342,6 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		// TODO: Complete this method.
 		Iterator itr = population.iterator();
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
@@ -291,14 +354,44 @@ public abstract class Critter {
 					Critter c2 = (Critter) myWorld.world[i][j].get(1);
 					boolean a = c1.fight(c2.toString());
 					boolean b = c2.fight(c1.toString());
-					if (!a && !b) {
+					if (!a && !b) {									//if no one wants to fight
 						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
 						myWorld.world[i][j].remove(1);
+						population.remove(c2);
 					}
-
-										
+					else if((a == true) && (b == false)) {
+						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+						myWorld.world[i][j].remove(1);
+						population.remove(c2);
+					}
+					else if((a == false) && (b == true)) {
+						c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
+						myWorld.world[i][j].remove(0);
+						population.remove(c1);
+					}
+					else if((a == true) && (b == true)) {
+						int aScore = Critter.getRandomInt(5);
+						int bScore = Critter.getRandomInt(5);
+						if(bScore > aScore) {
+							c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
+							myWorld.world[i][j].remove(0);
+							population.remove(c1);
+						}
+						else {
+							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+							myWorld.world[i][j].remove(1);
+							population.remove(c2);
+						}
+					}					
 				}
 			}
+		}
+		int babyPop = babies.size();
+		for(int i = 0; i < babyPop; i++) {		//add babies into general population
+			population.add(babies.get(i));
+		}
+		for(int i = 0; i < babyPop; i++) {		//remove babies from babies
+			babies.remove(i);
 		}
 	}
 	
@@ -314,7 +407,7 @@ public abstract class Critter {
 			for(int j = 0; j < Params.world_width; j++) {
 				if (!myWorld.world[i][j].isEmpty())
 					// check if this workssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-					System.out.print(CritterWorld.getSymbol((Critter)myWorld.world[i][j].get(0)));
+					System.out.print(myWorld.world[i][j].get(0).toString());
 				else System.out.print(" ");
 			}
 			System.out.print("|");

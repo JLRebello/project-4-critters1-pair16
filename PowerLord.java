@@ -25,12 +25,12 @@ public class PowerLord extends Critter {
 
 	@Override
 	public boolean fight(String opponent) {
-		if (opponent.equals("GodEmperor")) return false;
+		if (opponent.equals("G")) return false;
 		return true;
 	}
 	
 	public String toString() {
-		return "PowerLord";
+		return "P";
 	}
 	
 	public void test (List<Critter> l) {

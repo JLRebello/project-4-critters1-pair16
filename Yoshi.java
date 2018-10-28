@@ -31,6 +31,6 @@ public class Yoshi extends Critter {
 
 	@Override
 	public String toString () {
-		return "Yoshi";
+		return "Y";
 	}
 }

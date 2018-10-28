@@ -65,9 +65,12 @@ public class Main {
         } else { // if no arguments to main
             kb = new Scanner(System.in); // use keyboard and console
         }
-        String word = kb.nextLine();
+        String word = "";
+    	String[] words;
+
         while(word != "quit") {
-        	String[] words = word.split(" ");
+            word = kb.nextLine();
+        	words = word.split(" ");
         	if(words[0].equals("show")) {
         		Critter.displayWorld();
         	}

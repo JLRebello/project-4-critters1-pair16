@@ -26,12 +26,12 @@ public class GodEmperor extends Critter {
 
 	@Override
 	public boolean fight(String opponent) {
-		if(opponent.equals("GodEmperor")) return false;
+		if(opponent.equals("G")) return false;
 		return true;
 	}
 
 	@Override
 	public String toString () {
-		return "GodEmperor";
+		return "G";
 	}
 }

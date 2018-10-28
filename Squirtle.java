@@ -31,7 +31,7 @@ public class Squirtle extends TestCritter {
 
     @Override
     public String toString () {
-        return "Squirtle";
+        return "S";
     }
 
 }

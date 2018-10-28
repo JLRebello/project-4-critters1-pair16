@@ -14,26 +14,6 @@ public class CritterWorld {
         }
     }
 
-    public static char getSymbol(Critter current) {
-        if (current instanceof GodEmperor) {
-            return 'G';
-        }
-        if (current instanceof PowerLord) {
-            return 'P';
-        }
-        if (current instanceof Yoshi) {
-            return 'Y';
-        }
-        if (current instanceof Squirtle) {
-            return 'S';
-        }
-        if (current instanceof Craig) {
-            return 'C';
-        }
-        else {
-            return '@';
-        }
-    }
 
     // write methods for getting char symbols for whatever critter is accessed
 }
