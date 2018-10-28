@@ -352,17 +352,17 @@ public abstract class Critter {
 					boolean b = c2.fight(c1.toString());
 					if (!a && !b) {									//if no one wants to fight
 						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-						myWorld.world[i][j].remove(1);
+						myWorld.world[i][j].remove(c2);
 						population.remove(c2);
 					}
 					else if((a == true) && (b == false)) {
 						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-						myWorld.world[i][j].remove(1);
+						myWorld.world[i][j].remove(c2);
 						population.remove(c2);
 					}
 					else if((a == false) && (b == true)) {
 						c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
-						myWorld.world[i][j].remove(0);
+						myWorld.world[i][j].remove(c1);
 						population.remove(c1);
 					}
 					else if((a == true) && (b == true)) {
@@ -370,12 +370,12 @@ public abstract class Critter {
 						int bScore = Critter.getRandomInt(5);
 						if(bScore > aScore) {
 							c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
-							myWorld.world[i][j].remove(0);
+							myWorld.world[i][j].remove(c1);
 							population.remove(c1);
 						}
 						else {
 							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-							myWorld.world[i][j].remove(1);
+							myWorld.world[i][j].remove(c2);
 							population.remove(c2);
 						}
 					}					
