@@ -66,19 +66,35 @@ public class Main {
             kb = new Scanner(System.in); // use keyboard and console
         }
         String word = "";
-    	String[] words;
+    	String[] words = {"null", "null"};
 
-        while(word != "quit") {
+        while((!word.equals("quit")) ) { 
             word = kb.nextLine();
         	words = word.split(" ");
+        	if(words.length > 3 ) {
+        		System.out.println("invalid command: " + word);
+        	}
         	if(words[0].equals("show")) {
-        		Critter.displayWorld();
+            	if(words.length != 1 ) {
+            		System.out.println("invalid command: " + word);
+            	}
+            	else {
+            		Critter.displayWorld();
+            	}
         	}
         	else if(words[0].equals("step")) {
-        		if(words.length != 1) {
-        			int num = Integer.parseInt(words[1]);
-        			for(int i = 0; i < num; i++) {
-                		Critter.worldTimeStep();
+            	if(words.length > 2 ){
+            		System.out.println("invalid command: " + word);
+            	}
+            	else if(words.length != 1) {
+        			try{
+        				int num = Integer.parseInt(words[1]);
+        				for(int i = 0; i < num; i++) {
+        					Critter.worldTimeStep();
+        				}
+        			}
+        			catch(NumberFormatException e) {
+                		System.out.println("invalid command: " + word);
         			}
         		}
         		else {
@@ -86,20 +102,39 @@ public class Main {
         		}
         	}
         	else if(words[0].equals("seed")) {
-        		int num = Integer.parseInt(words[1]);
-        		Critter.setSeed(num);
+            	if(words.length != 2) {
+            		System.out.println("invalid command: " + word);
+            	}
+            	else {
+            		try{ 
+            		int num = Integer.parseInt(words[1]);
+            		Critter.setSeed(num);
+            		}
+            		catch(NumberFormatException e) {
+            			System.out.println("invalid command: " + word);
+            		}
+            	}
         	}
         	else if(words[0].equals("make")) {
-        		if(!words[2].equals(null)) {
-        			int num = Integer.parseInt(words[2]);
-        				for(int i = 0; i < num; i++) {
-        					try {
-								Critter.makeCritter(words[1]);
-							} catch (InvalidCritterException e) {
-								System.out.println("Invalid Critter");
-							}
-        				}
-        			}
+            	if(words.length != 3 ) {
+            		System.out.println("invalid command: " + word);
+            	}
+            	else if(!words[2].equals(null)) {
+            		try {
+            			int num = Integer.parseInt(words[2]);
+        					for(int i = 0; i < num; i++) {
+        						try {
+        							Critter.makeCritter(words[1]);
+        						} catch (InvalidCritterException e) {
+        							System.out.println("Invalid Critter");
+        							break;
+        						}
+        					}
+            		}
+            		catch(NumberFormatException e) {
+                		System.out.println("invalid command: " + word);
+            		}
+        		}
         		else {
             		try {
 						Critter.makeCritter(words[1]);
@@ -109,12 +144,22 @@ public class Main {
         		}
         	}
         	else if(words[0].equals("stats")) {
-        		try {
+            	if(words.length != 2) {
+            		System.out.println("invalid command: " + word);
+            	}
+            	else try {
 					Critter.runStats(Critter.getInstances(words[1]));
 				} catch (InvalidCritterException e) {
 					System.out.println("Invalid Critter");
+					break;
 				}
-        	}	
+        	}
+        	else if((words[0].equals("quit")) && (words.length != 1)) {
+        		System.out.println("invalid command: " + word);
+        	}
+        	else if(!word.equals("quit")){
+        		System.out.println("invalid command: " + word);
+        	}
         }
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
@@ -122,8 +167,6 @@ public class Main {
         // System.out.println("GLHF");
         
         /* Write your code above */
-        Critter.displayWorld();
         System.out.flush();
-
     }
 }

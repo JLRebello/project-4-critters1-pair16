@@ -210,6 +210,9 @@ public abstract class Critter {
 			population.add(newLord);
 			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
 		}
+		else {
+			throw new InvalidCritterException("invalid critter");
+		}
 	}
 	
 	/**
@@ -220,44 +223,54 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-		if(critter_class_name.equals("Craig")) {
-			for (Critter crit : population) {
-				if(crit instanceof Craig)
-					result.add(crit);
+			if(critter_class_name.equals("Craig")) {
+				for (Critter crit : population) {
+					if(crit instanceof Craig)
+						result.add(crit);
+				}
+				return result;
 			}
-		}
-		else if(critter_class_name.equals("GodEmperor")){
-			for (Critter crit : population) {
-				if(crit instanceof GodEmperor)
-					result.add(crit);
+			else if(critter_class_name.equals("GodEmperor")){
+				for (Critter crit : population) {
+					if(crit instanceof GodEmperor)
+						result.add(crit);
+				}
+				return result;
 			}
-		}
-		else if(critter_class_name.equals("Algae")){
-			for (Critter crit : population) {
-				if(crit instanceof Algae)
-					result.add(crit);
+			else if(critter_class_name.equals("Algae")){
+				for (Critter crit : population) {
+					if(crit instanceof Algae)
+						result.add(crit);
+				}
+				return result;
 			}
-		}
-		else if(critter_class_name.equals("Yoshi")){
-			for (Critter crit : population) {
-				if(crit instanceof Yoshi)
-					result.add(crit);
+			else if(critter_class_name.equals("Yoshi")){
+				for (Critter crit : population) {
+					if(crit instanceof Yoshi)
+						result.add(crit);
+				}
+				return result;
 			}
-		}
-		else if(critter_class_name.equals("Squirtle")){
-			for (Critter crit : population) {
-				if(crit instanceof Squirtle)
-					result.add(crit);
+			else if(critter_class_name.equals("Squirtle")){
+				for (Critter crit : population) {
+					if(crit instanceof Squirtle)
+						result.add(crit);
+				}
+				return result;
 			}
-		}
-		else if(critter_class_name.equals("PowerLord")){
-			for (Critter crit : population) {
-				if(crit instanceof PowerLord)
-					result.add(crit);
+			else if(critter_class_name.equals("PowerLord")){
+				for (Critter crit : population) {
+					if(crit instanceof PowerLord)
+						result.add(crit);
+				}
+				return result;
+			} 
+			else {
+				throw new InvalidCritterException("invalid critter");
 			}
-		}
-		return result;
 	}
+	
+	
 	
 	/**
 	 * Prints out how many Critters of each type there are on the board.
@@ -349,7 +362,8 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		Iterator itr = population.iterator();
+		List<Critter> popCopy = new ArrayList<Critter>(population);
+		Iterator itr = popCopy.iterator();
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
@@ -400,9 +414,7 @@ public abstract class Critter {
 		for(int i = 0; i < babyPop; i++) {		//add babies into general population
 			population.add(babies.get(i));
 		}
-		for(int i = 0; i < babyPop; i++) {		//remove babies from babies
-			babies.remove(i);
-		}
+		babies.clear();
 		for(Critter crit : population) {
 			crit.moveFlag = false;
 		}

@@ -1,5 +1,15 @@
 package assignment4;
-
+/*Yoshi.java 
+* EE422C Project 4 submission by
+* Julia Rebello
+* JLR3755
+* Section 16365
+* Samir Riad
+* SR43888
+* Section 16360
+* Slip days used: <0>
+* Fall 2018
+*/
 import assignment4.Critter.TestCritter;
 
 public class Yoshi extends Critter {
@@ -34,7 +44,7 @@ public class Yoshi extends Critter {
 		}
 
 		if (this.getEnergy() <= 0) {
-			Critter.myWorld.world[getX()][getY()].remove(this);
+			Critter.myWorld.world[this.getX()][this.getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
 		}
 	}

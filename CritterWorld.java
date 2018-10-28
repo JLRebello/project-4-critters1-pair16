@@ -1,5 +1,15 @@
 package assignment4;
-
+/*CritterWorld.java 
+* EE422C Project 4 submission by
+* Julia Rebello
+* JLR3755
+* Section 16365
+* Samir Riad
+* SR43888
+* Section 16360
+* Slip days used: <0>
+* Fall 2018
+*/
 import java.util.ArrayList;
 
 public class CritterWorld {
