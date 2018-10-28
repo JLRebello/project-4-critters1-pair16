@@ -12,8 +12,6 @@ package assignment4;
  */
 
 import java.util.*;
-//import java.util.Iterator;
-//import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -25,15 +23,14 @@ public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-
 	// added by us
 	public static CritterWorld myWorld = new CritterWorld();
-
+	
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
 		myPackage = Critter.class.getPackage().toString().split(" ")[1];
 	}
-	
+
 	private static java.util.Random rand = new java.util.Random();
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
@@ -53,15 +50,18 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
+	public boolean moveFlag = false;
 
 	protected int getX() {return x_coord;}
 	protected int getY() {return y_coord;}
 	protected void setX(int foo) {x_coord = foo;}
 	protected void setY(int foo) {y_coord = foo;}
 	
-	protected final void walk(int direction) {  //EDIT THIS WALK!
+	protected final void walk(int direction) {  
 		myWorld.world[this.getY()][this.getX()].remove(this);
-				/////// 	if there are two Craigs, will it remove the right one???????
+		if(this instanceof Craig) {
+			this.moveFlag = true;
+		}
 		if(direction == 0) {
 			if(this.getX() == Params.world_width - 1) {
 				this.setX(0);
@@ -157,37 +157,12 @@ public abstract class Critter {
 		this.walk(direction);
 		this.walk(direction);
 	}
-	
+
 	protected final void reproduce(Critter offspring, int direction) {
-		if(offspring.toString().equals("C")) {
-			Craig newCraig = new Craig();
-			population.add(newCraig);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCraig);
-		}
-		else if(offspring.toString().equals("G")){
-			GodEmperor newGodEmp = new GodEmperor();
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newGodEmp);
-		}
-		else if(offspring.toString().equals("@")){
-			Algae newAlgae = new Algae();
-			population.add(newAlgae);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newAlgae);
-		}
-		else if(offspring.toString().equals("Y")){
-			Yoshi egg = new Yoshi();
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(egg);
-		}
-		else if(offspring.toString().equals("S")){
-			Squirtle Squirt = new Squirtle();
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(Squirt);
-		}
-		else if(offspring.toString().equals("P")){
-			PowerLord newLord = new PowerLord();
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newLord);
-		}
 		offspring.setX(this.getX());
 		offspring.setY(this.getY());
 		offspring.walk(direction);
+		myWorld.world[offspring.getY()][offspring.getX()].add(offspring);
 		babies.add(offspring);
 	}
 
@@ -381,15 +356,18 @@ public abstract class Critter {
 		}
 		for(int i = 0; i < Params.world_height; i++) {
 			for(int j = 0; j < Params.world_width; j++) {
-				if(myWorld.world[i][j].size() > 1){
+				while(myWorld.world[i][j].size() > 1){
 					Critter c1 = (Critter) myWorld.world[i][j].get(0);
 					Critter c2 = (Critter) myWorld.world[i][j].get(1);
 					boolean a = c1.fight(c2.toString());
 					boolean b = c2.fight(c1.toString());
 					if (!a && !b) {									//if no one wants to fight
-						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-						myWorld.world[i][j].remove(c2);
-						population.remove(c2);
+						if((c1.moveFlag == false) && (c2.moveFlag == false)){
+							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+							myWorld.world[i][j].remove(c2);
+							population.remove(c2);
+						}
+
 					}
 					else if((a == true) && (b == false)) {
 						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
@@ -425,6 +403,16 @@ public abstract class Critter {
 		for(int i = 0; i < babyPop; i++) {		//remove babies from babies
 			babies.remove(i);
 		}
+		for(Critter crit : population) {
+			crit.moveFlag = false;
+		}
+		for(int i = 0; i < Params.refresh_algae_count; i++) {
+			try {
+				makeCritter("Algae");
+			} catch (InvalidCritterException e) {
+				System.out.println("Invalid Critter");
+			}
+		}
 	}
 	
 	public static void displayWorld() {
@@ -438,7 +426,6 @@ public abstract class Critter {
 			System.out.print('\n' + "|");
 			for(int j = 0; j < Params.world_width; j++) {
 				if (!myWorld.world[i][j].isEmpty())
-					// check if this workssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 					System.out.print(myWorld.world[i][j].get(0).toString());
 				else System.out.print(" ");
 			}

@@ -10,13 +10,17 @@ public class GodEmperor extends Critter {
 		this.setX(Critter.getRandomInt(Params.world_width - 1));
 		this.setY(Critter.getRandomInt(Params.world_height - 1));
 		myWorld.world[getY()][getX()].add(this);
-		TestCritter.getPopulation().add(this);
 	}
 	
 	@Override
 	public void doTimeStep() {
 		run(Critter.getRandomInt(8));
-		this.setEnergy(this.getEnergy() - Params.run_energy_cost);
+		this.moveFlag = true;
+		this.setEnergy(this.getEnergy() - Params.rest_energy_cost);
+		if (this.getEnergy() <= 0) {
+			Critter.myWorld.world[getX()][getY()].remove(this);
+			TestCritter.getPopulation().remove(this);
+		}
 		if (this.getEnergy() <= 0) {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
