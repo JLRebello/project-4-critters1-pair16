@@ -183,32 +183,32 @@ public abstract class Critter {
 		if(critter_class_name.equals("Craig")) {
 			Craig newCraig = new Craig();
 			population.add(newCraig);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCraig);
+			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
 		}
 		else if(critter_class_name.equals("GodEmperor")){
 			GodEmperor newGodEmp = new GodEmperor();
 			population.add(newGodEmp);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newGodEmp);
+			myWorld.world[newGodEmp.getY()][newGodEmp.getX()].add(newGodEmp);
 		}
 		else if(critter_class_name.equals("Algae")){
 			Algae newAlgae = new Algae();
 			population.add(newAlgae);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newAlgae);
+			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
 		}
 		else if(critter_class_name.equals("Yoshi")){
 			Yoshi egg = new Yoshi();
 			population.add(egg);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(egg);
+			myWorld.world[egg.getY()][egg.getX()].add(egg);
 		}
 		else if(critter_class_name.equals("Squirtle")){
 			Squirtle Squirt = new Squirtle();
 			population.add(Squirt);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(Squirt);
+			myWorld.world[Squirt.getY()][Squirt.getX()].add(Squirt);
 		}
 		else if(critter_class_name.equals("PowerLord")){
 			PowerLord newLord = new PowerLord();
 			population.add(newLord);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newLord);
+			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
 		}
 	}
 	

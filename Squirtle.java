@@ -8,7 +8,6 @@ public class Squirtle extends TestCritter {
         this.setEnergy(Params.start_energy);
         this.setX(Critter.getRandomInt(Params.world_width - 1));
         this.setY(Critter.getRandomInt(Params.world_height - 1));
-        myWorld.world[getY()][getX()].add(this);
     }
 
     @Override
