@@ -106,16 +106,14 @@ public class Main {
 					} catch (InvalidCritterException e) {
 						System.out.println("Invalid Critter");
 					}
-        		}	
+        		}
         	}
         	else if(words[0].equals("stats")) {
         		try {
-					Critter.getInstances(words[1]);
+					Critter.runStats(Critter.getInstances(words[1]));
 				} catch (InvalidCritterException e) {
 					System.out.println("Invalid Critter");
 				}
-        		//**********************************************************************************
-        		System.out.println("STATS"); //TODO: FINISH THIS
         	}	
         }
         /* Do not alter the code above for your submission. */

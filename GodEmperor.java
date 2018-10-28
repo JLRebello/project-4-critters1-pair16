@@ -21,7 +21,6 @@ public class GodEmperor extends Critter {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
 		}
-													// will these remove the right one if there's two??
 	}
 
 	@Override

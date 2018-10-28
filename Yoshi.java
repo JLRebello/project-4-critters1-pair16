@@ -20,13 +20,14 @@ public class Yoshi extends Critter {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
 		}
-		// will these remove the right one if there's two??
 	}
 
 	@Override
 	public boolean fight(String opponent) {
-
-		return true;
+		if (getEnergy() > Params.start_energy/2)
+			return true;
+		else walk(0);
+		return false;
 	}
 
 	@Override

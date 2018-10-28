@@ -245,6 +245,42 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		if(critter_class_name.equals("Craig")) {
+			for (Critter crit : population) {
+				if(crit instanceof Craig)
+					result.add(crit);
+			}
+		}
+		else if(critter_class_name.equals("GodEmperor")){
+			for (Critter crit : population) {
+				if(crit instanceof GodEmperor)
+					result.add(crit);
+			}
+		}
+		else if(critter_class_name.equals("Algae")){
+			for (Critter crit : population) {
+				if(crit instanceof Algae)
+					result.add(crit);
+			}
+		}
+		else if(critter_class_name.equals("Yoshi")){
+			for (Critter crit : population) {
+				if(crit instanceof Yoshi)
+					result.add(crit);
+			}
+		}
+		else if(critter_class_name.equals("Squirtle")){
+			for (Critter crit : population) {
+				if(crit instanceof Squirtle)
+					result.add(crit);
+			}
+		}
+		else if(critter_class_name.equals("PowerLord")){
+			for (Critter crit : population) {
+				if(crit instanceof PowerLord)
+					result.add(crit);
+			}
+		}
 		return result;
 	}
 	
