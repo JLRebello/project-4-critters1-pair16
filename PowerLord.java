@@ -33,10 +33,10 @@ public class PowerLord extends Critter {
 			this.moveFlag = true;
 			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);		//power Lord is supernatural so he uses walk energy to run
 		}		
-		if (this.getEnergy() <= 0) {
+		/*if (this.getEnergy() <= 0) {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
-		}
+		}*/
 	}
 
 	@Override

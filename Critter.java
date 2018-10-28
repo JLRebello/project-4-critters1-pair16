@@ -362,11 +362,17 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		List<Critter> popCopy = new ArrayList<Critter>(population);
-		Iterator itr = popCopy.iterator();
+		Iterator itr = population.iterator();
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
+		}
+		List<Critter> popCopy = new ArrayList<>(population);
+		for(Critter crit : popCopy) {		//removing dead critters
+			if(crit.getEnergy() <= 0) {
+				population.remove(crit);
+				myWorld.world[crit.getY()][crit.getX()].remove(crit);
+			}
 		}
 		for(int i = 0; i < Params.world_height; i++) {
 			for(int j = 0; j < Params.world_width; j++) {

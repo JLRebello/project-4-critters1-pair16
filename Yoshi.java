@@ -43,10 +43,10 @@ public class Yoshi extends Critter {
 			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
 
-		if (this.getEnergy() <= 0) {
+		/*if (this.getEnergy() <= 0) {
 			Critter.myWorld.world[this.getX()][this.getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
-		}
+		}*/
 	}
 
 	@Override

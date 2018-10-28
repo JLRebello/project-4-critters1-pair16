@@ -43,10 +43,10 @@ public class Squirtle extends TestCritter {
 			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
 
-		if (this.getEnergy() <= 0) {
+		/*if (this.getEnergy() <= 0) {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
-		}
+		}*/
     }
 
     @Override

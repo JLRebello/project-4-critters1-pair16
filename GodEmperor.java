@@ -30,10 +30,10 @@ public class GodEmperor extends Critter {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
 		}
-		if (this.getEnergy() <= 0) {
+		/*if (this.getEnergy() <= 0) {
 			Critter.myWorld.world[getX()][getY()].remove(this);
 			TestCritter.getPopulation().remove(this);
-		}
+		}*/
 	}
 
 	@Override
