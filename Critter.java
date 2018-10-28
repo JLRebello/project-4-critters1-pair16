@@ -367,11 +367,19 @@ public abstract class Critter {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
 		}
-		List<Critter> popCopy = new ArrayList<>(population);
-		for(Critter crit : popCopy) {		//removing dead critters
+		//List<Critter> popCopy = new ArrayList<>(population);
+		/*or(Critter crit : population) {		//removing dead critters
 			if(crit.getEnergy() <= 0) {
 				population.remove(crit);
 				myWorld.world[crit.getY()][crit.getX()].remove(crit);
+			}
+		}*/
+		Iterator<Critter> it = population.iterator();
+		while(it.hasNext()) {
+			Critter tempCrit = it.next();
+			if(tempCrit.getEnergy() <= 0) {
+				it.remove();
+				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
 		}
 		for(int i = 0; i < Params.world_height; i++) {
