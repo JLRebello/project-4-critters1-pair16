@@ -166,7 +166,6 @@ public abstract class Critter {
 		}
 		else if(offspring.toString().equals("G")){
 			GodEmperor newGodEmp = new GodEmperor();
-			population.add(newGodEmp);
 			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newGodEmp);
 		}
 		else if(offspring.toString().equals("@")){
@@ -176,17 +175,14 @@ public abstract class Critter {
 		}
 		else if(offspring.toString().equals("Y")){
 			Yoshi egg = new Yoshi();
-			population.add(egg);
 			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(egg);
 		}
 		else if(offspring.toString().equals("S")){
 			Squirtle Squirt = new Squirtle();
-			population.add(Squirt);
 			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(Squirt);
 		}
 		else if(offspring.toString().equals("P")){
 			PowerLord newLord = new PowerLord();
-			population.add(newLord);
 			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newLord);
 		}
 		offspring.setX(this.getX());

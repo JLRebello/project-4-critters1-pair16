@@ -75,7 +75,7 @@ public class Main {
         		Critter.displayWorld();
         	}
         	else if(words[0].equals("step")) {
-        		if(!words[1].equals(null)) {
+        		if(words.length != 1) {
         			int num = Integer.parseInt(words[1]);
         			for(int i = 0; i < num; i++) {
                 		Critter.worldTimeStep();
