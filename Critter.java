@@ -362,26 +362,30 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		Iterator itr = population.iterator();
+		Iterator<Critter> itr = population.iterator();
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
 		}
-		//List<Critter> popCopy = new ArrayList<>(population);
-		/*or(Critter crit : population) {		//removing dead critters
-			if(crit.getEnergy() <= 0) {
-				population.remove(crit);
-				myWorld.world[crit.getY()][crit.getX()].remove(crit);
-			}
-		}*/
-		Iterator<Critter> it = population.iterator();
-		while(it.hasNext()) {
-			Critter tempCrit = it.next();
+		Iterator<Critter> itr2 = population.iterator();
+		while(itr2.hasNext()) {
+			Critter tempCrit = itr2.next();
 			if(tempCrit.getEnergy() <= 0) {
-				it.remove();
+				itr2.remove();
 				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
 		}
+		/*int index = 0;
+		while(index < population.size()) {
+			population.get(index).doTimeStep();
+			if(population.get(index).getEnergy() <= 0) {
+				population.remove(population.get(index));
+			}
+			else {
+				index++;
+			}
+		}*/
+	
 		for(int i = 0; i < Params.world_height; i++) {
 			for(int j = 0; j < Params.world_width; j++) {
 				while(myWorld.world[i][j].size() > 1){
@@ -395,17 +399,20 @@ public abstract class Critter {
 							myWorld.world[i][j].remove(c2);
 							population.remove(c2);
 						}
-
 					}
 					else if((a == true) && (b == false)) {
-						c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-						myWorld.world[i][j].remove(c2);
-						population.remove(c2);
+						if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
+							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+							myWorld.world[i][j].remove(c2);
+							population.remove(c2);
+						}
 					}
 					else if((a == false) && (b == true)) {
-						c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
-						myWorld.world[i][j].remove(c1);
-						population.remove(c1);
+						if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
+							c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
+							myWorld.world[i][j].remove(c1);
+							population.remove(c1);
+						}
 					}
 					else if((a == true) && (b == true)) {
 						int aScore = Critter.getRandomInt(5);
