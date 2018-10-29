@@ -145,7 +145,8 @@ public class Main {
             		System.out.println("error processing: " + word);
             	}
             	else try {
-					Critter.runStats(Critter.getInstances(words[1]));
+            		if(words[1].equals("Craig")) Craig.runStats(Critter.getInstances(words[1]));
+            		else Critter.runStats(Critter.getInstances(words[1]));
 				} catch (InvalidCritterException e) {
 					System.out.println("error processing: " + word);
 				}
