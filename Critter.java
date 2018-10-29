@@ -195,8 +195,8 @@ public abstract class Critter {
 		}
 		else if(critter_class_name.equals("Algae")){
 			Algae newAlgae = new Algae();
-			newAlgae.setX(Critter.getRandomInt(Params.world_width));
-			newAlgae.setY(Critter.getRandomInt(Params.world_height));
+			newAlgae.setX_coord(Critter.getRandomInt(Params.world_width));
+			newAlgae.setY_coord(Critter.getRandomInt(Params.world_height));
 			newAlgae.setEnergy(Params.start_energy);
 			population.add(newAlgae);
 			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
