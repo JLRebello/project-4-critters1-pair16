@@ -71,12 +71,9 @@ public class Main {
         while((!word.equals("quit")) ) { 
             word = kb.nextLine();
         	words = word.split(" ");
-        	if(words.length > 3 ) {
-        		System.out.println("invalid command: " + word);
-        	}
         	if(words[0].equals("show")) {
             	if(words.length != 1 ) {
-            		System.out.println("invalid command: " + word);
+            		System.out.println("error processing: " + word);
             	}
             	else {
             		Critter.displayWorld();
@@ -84,7 +81,7 @@ public class Main {
         	}
         	else if(words[0].equals("step")) {
             	if(words.length > 2 ){
-            		System.out.println("invalid command: " + word);
+            		System.out.println("error processing: " + word);
             	}
             	else if(words.length != 1) {
         			try{
@@ -94,7 +91,7 @@ public class Main {
         				}
         			}
         			catch(NumberFormatException e) {
-                		System.out.println("invalid command: " + word);
+                		System.out.println("error processing: " + word);
         			}
         		}
         		else {
@@ -103,7 +100,7 @@ public class Main {
         	}
         	else if(words[0].equals("seed")) {
             	if(words.length != 2) {
-            		System.out.println("invalid command: " + word);
+            		System.out.println("error processing: " + word);
             	}
             	else {
             		try{ 
@@ -111,13 +108,13 @@ public class Main {
             		Critter.setSeed(num);
             		}
             		catch(NumberFormatException e) {
-            			System.out.println("invalid command: " + word);
+            			System.out.println("error processing: " + word);
             		}
             	}
         	}
         	else if(words[0].equals("make")) {
             	if(words.length != 3 ) {
-            		System.out.println("invalid command: " + word);
+            		System.out.println("error processing: " + word);
             	}
             	else if(!words[2].equals(null)) {
             		try {
@@ -126,36 +123,35 @@ public class Main {
         						try {
         							Critter.makeCritter(words[1]);
         						} catch (InvalidCritterException e) {
-        							System.out.println("Invalid Critter");
+        							System.out.println("error processing: " + word);
         							break;
         						}
         					}
             		}
             		catch(NumberFormatException e) {
-                		System.out.println("invalid command: " + word);
+                		System.out.println("error processing: " + word);
             		}
         		}
         		else {
             		try {
 						Critter.makeCritter(words[1]);
 					} catch (InvalidCritterException e) {
-						System.out.println("Invalid Critter");
+						System.out.println("error processing: " + word);
 					}
         		}
         	}
         	else if(words[0].equals("stats")) {
             	if(words.length != 2) {
-            		System.out.println("invalid command: " + word);
+            		System.out.println("error processing: " + word);
             	}
             	else try {
 					Critter.runStats(Critter.getInstances(words[1]));
 				} catch (InvalidCritterException e) {
-					System.out.println("Invalid Critter");
-					break;
+					System.out.println("error processing: " + word);
 				}
         	}
         	else if((words[0].equals("quit")) && (words.length != 1)) {
-        		System.out.println("invalid command: " + word);
+        		System.out.println("error processing: " + word);
         	}
         	else if(!word.equals("quit")){
         		System.out.println("invalid command: " + word);

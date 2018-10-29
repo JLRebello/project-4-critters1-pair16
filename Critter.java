@@ -182,6 +182,9 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		if(critter_class_name.equals("Craig")) {
 			Craig newCraig = new Craig();
+			newCraig.setX(Critter.getRandomInt(Params.world_width));
+			newCraig.setY(Critter.getRandomInt(Params.world_height));
+			newCraig.setEnergy(Params.start_energy);
 			population.add(newCraig);
 			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
 		}
@@ -192,6 +195,9 @@ public abstract class Critter {
 		}
 		else if(critter_class_name.equals("Algae")){
 			Algae newAlgae = new Algae();
+			newAlgae.setX(Critter.getRandomInt(Params.world_width));
+			newAlgae.setY(Critter.getRandomInt(Params.world_height));
+			newAlgae.setEnergy(Params.start_energy);
 			population.add(newAlgae);
 			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
 		}
@@ -393,41 +399,43 @@ public abstract class Critter {
 					Critter c2 = (Critter) myWorld.world[i][j].get(1);
 					boolean a = c1.fight(c2.toString());
 					boolean b = c2.fight(c1.toString());
-					if (!a && !b) {									//if no one wants to fight
-						if((c1.moveFlag == false) && (c2.moveFlag == false)){
-							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-							myWorld.world[i][j].remove(c2);
-							population.remove(c2);
+					if (myWorld.world[i][j].size() <= 1) break;
+					if (myWorld.world[i][j].contains(c1) && myWorld.world[i][j].contains(c2)) {
+						if (!a && !b) {									//if no one wants to fight
+//							if((c1.moveFlag == false) && (c2.moveFlag == false)){
+								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+								myWorld.world[i][j].remove(c2);
+								population.remove(c2);
+//							}
+						}
+						else if((a == true) && (b == false)) {
+//							if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
+								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+								myWorld.world[i][j].remove(c2);
+								population.remove(c2);
+//							}
+						}
+						else if((a == false) && (b == true)) {
+//							if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
+								c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
+								myWorld.world[i][j].remove(c1);
+								population.remove(c1);
+//							}
+						}
+						else if((a == true) && (b == true)) {
+							int aScore = Critter.getRandomInt(5);
+							int bScore = Critter.getRandomInt(5);
+							if (bScore > aScore) {
+								c2.setEnergy(c2.getEnergy() + c1.getEnergy() / 2);
+								myWorld.world[i][j].remove(c1);
+								population.remove(c1);
+							} else {
+								c1.setEnergy(c1.getEnergy() + c2.getEnergy() / 2);
+								myWorld.world[i][j].remove(c2);
+								population.remove(c2);
+							}
 						}
 					}
-					else if((a == true) && (b == false)) {
-						if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
-							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-							myWorld.world[i][j].remove(c2);
-							population.remove(c2);
-						}
-					}
-					else if((a == false) && (b == true)) {
-						if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
-							c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
-							myWorld.world[i][j].remove(c1);
-							population.remove(c1);
-						}
-					}
-					else if((a == true) && (b == true)) {
-						int aScore = Critter.getRandomInt(5);
-						int bScore = Critter.getRandomInt(5);
-						if(bScore > aScore) {
-							c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
-							myWorld.world[i][j].remove(c1);
-							population.remove(c1);
-						}
-						else {
-							c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
-							myWorld.world[i][j].remove(c2);
-							population.remove(c2);
-						}
-					}					
 				}
 			}
 		}
