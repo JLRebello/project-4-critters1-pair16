@@ -11,10 +11,13 @@ package assignment4;
 * Fall 2018
 */
 import assignment4.Critter.TestCritter;
+/*Critter4’s are smart and athletic. 
+ * They only fight when they have half or more of their initial energy, 
+ * and they run with the energy it takes a normal critter to walk. They reproduce randomly.
+ */
+public class Critter4 extends Critter {
 
-public class Yoshi extends Critter {
-
-	Yoshi(){
+	Critter4(){
 		this.setEnergy(Params.start_energy);
 		this.setX(Critter.getRandomInt(Params.world_width - 1));
 		this.setY(Critter.getRandomInt(Params.world_height - 1));
@@ -34,7 +37,7 @@ public class Yoshi extends Critter {
 			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);
 		}
 		else if(this.getEnergy() >= Params.min_reproduce_energy) {
-			Yoshi egg = new Yoshi();
+			Critter4 egg = new Critter4();
 			this.reproduce(egg,Critter.getRandomInt(8));
 			this.setEnergy(this.getEnergy()/2);
 			egg.setEnergy(this.getEnergy()/2);
@@ -42,11 +45,6 @@ public class Yoshi extends Critter {
 		else {
 			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
-
-		/*if (this.getEnergy() <= 0) {
-			Critter.myWorld.world[this.getX()][this.getY()].remove(this);
-			TestCritter.getPopulation().remove(this);
-		}*/
 	}
 
 	@Override

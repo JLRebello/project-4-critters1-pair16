@@ -188,8 +188,8 @@ public abstract class Critter {
 			population.add(newCraig);
 			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
 		}
-		else if(critter_class_name.equals("GodEmperor")){
-			GodEmperor newGodEmp = new GodEmperor();
+		else if(critter_class_name.equals("Critter1")){
+			Critter1 newGodEmp = new Critter1();
 			population.add(newGodEmp);
 			myWorld.world[newGodEmp.getY()][newGodEmp.getX()].add(newGodEmp);
 		}
@@ -201,18 +201,18 @@ public abstract class Critter {
 			population.add(newAlgae);
 			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
 		}
-		else if(critter_class_name.equals("Yoshi")){
-			Yoshi egg = new Yoshi();
+		else if(critter_class_name.equals("Critter4")){
+			Critter4 egg = new Critter4();
 			population.add(egg);
 			myWorld.world[egg.getY()][egg.getX()].add(egg);
 		}
-		else if(critter_class_name.equals("Squirtle")){
-			Squirtle Squirt = new Squirtle();
+		else if(critter_class_name.equals("Critter3")){
+			Critter3 Squirt = new Critter3();
 			population.add(Squirt);
 			myWorld.world[Squirt.getY()][Squirt.getX()].add(Squirt);
 		}
-		else if(critter_class_name.equals("PowerLord")){
-			PowerLord newLord = new PowerLord();
+		else if(critter_class_name.equals("Critter2")){
+			Critter2 newLord = new Critter2();
 			population.add(newLord);
 			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
 		}
@@ -236,9 +236,9 @@ public abstract class Critter {
 				}
 				return result;
 			}
-			else if(critter_class_name.equals("GodEmperor")){
+			else if(critter_class_name.equals("Critter1")){
 				for (Critter crit : population) {
-					if(crit instanceof GodEmperor)
+					if(crit instanceof Critter1)
 						result.add(crit);
 				}
 				return result;
@@ -250,23 +250,23 @@ public abstract class Critter {
 				}
 				return result;
 			}
-			else if(critter_class_name.equals("Yoshi")){
+			else if(critter_class_name.equals("Critter4")){
 				for (Critter crit : population) {
-					if(crit instanceof Yoshi)
+					if(crit instanceof Critter4)
 						result.add(crit);
 				}
 				return result;
 			}
-			else if(critter_class_name.equals("Squirtle")){
+			else if(critter_class_name.equals("Critter3")){
 				for (Critter crit : population) {
-					if(crit instanceof Squirtle)
+					if(crit instanceof Critter3)
 						result.add(crit);
 				}
 				return result;
 			}
-			else if(critter_class_name.equals("PowerLord")){
+			else if(critter_class_name.equals("Critter2")){
 				for (Critter crit : population) {
-					if(crit instanceof PowerLord)
+					if(crit instanceof Critter2)
 						result.add(crit);
 				}
 				return result;

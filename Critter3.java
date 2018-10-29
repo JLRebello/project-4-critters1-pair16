@@ -11,10 +11,14 @@ package assignment4;
 * Fall 2018
 */
 import assignment4.Critter.TestCritter;
+/*Critter3’s are smart but lazy. 
+ * They only fight when they have 1/3 or more of their initial energy, and when they walk or rest, 
+ * they use the energy it takes a normal critter to run. 
+ * They never run themselves, but they do reproduce randomly.
+ */
+public class Critter3 extends TestCritter {
 
-public class Squirtle extends TestCritter {
-
-    Squirtle(){
+    Critter3(){
         this.setEnergy(Params.start_energy);
         this.setX(Critter.getRandomInt(Params.world_width - 1));
         this.setY(Critter.getRandomInt(Params.world_height - 1));
@@ -34,7 +38,7 @@ public class Squirtle extends TestCritter {
 			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);
 		}
 		else if(this.getEnergy() >= Params.min_reproduce_energy) {
-			Squirtle egg = new Squirtle();
+			Critter3 egg = new Critter3();
 			this.reproduce(egg,Critter.getRandomInt(8));
 			this.setEnergy(this.getEnergy()/2);
 			egg.setEnergy(this.getEnergy()/2);
@@ -42,11 +46,6 @@ public class Squirtle extends TestCritter {
 		else {
 			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
-
-		/*if (this.getEnergy() <= 0) {
-			Critter.myWorld.world[getX()][getY()].remove(this);
-			TestCritter.getPopulation().remove(this);
-		}*/
     }
 
     @Override
