@@ -52,11 +52,9 @@ public class Critter3 extends TestCritter {
 		if((this.moveFlag == false) && (myWorld.world[this.getY()][check].isEmpty())){
 			walk(4);
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy() - Params.run_energy_cost);
 			return false;
 		}
 		else {
-			this.setEnergy(this.getEnergy() - Params.run_energy_cost);
 			return false;
 		}
     }
