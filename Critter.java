@@ -54,21 +54,43 @@ public abstract class Critter {
 	private int y_coord;
 	public boolean moveFlag = false;
 	public boolean runFlag = false;
-
+    /**
+     * getX_coord method.
+     * This method sets the X coordinate. 
+     * @return new x coordinate.
+     */	
 	protected int getX() {return this.x_coord;}
+    /**
+     * getY_coord method.
+     * This method sets the Y coordinate. 
+     * @return new y coordinate.
+     */	
 	protected int getY() {return this.y_coord;}
+    /**
+     * setX_coord method.
+     * This method sets the X coordinate. 
+     * @param new_x_coord is the x coordinate of our simulated world.
+     */
 	protected void setX(int foo) {
 		myWorld.world[this.getX()][this.getY()].remove(this);
 		this.x_coord = foo;
 		myWorld.world[this.getX()][this.getY()].add(this);
 	}
-		
+    /**
+     * setY_coord method.
+     * This method sets the Y coordinate. 
+     * @param new_y_coord is the y coordinate of our simulated world.
+     */		
 	protected void setY(int foo) {
 		myWorld.world[this.getX()][this.getY()].remove(this);
 		this.y_coord = foo;
 		myWorld.world[this.getX()][this.getY()].add(this);
 	}
-	
+	/**
+	 * walk Method
+	 * This method allows our Critters to move one position in any direction in our simulated world.
+	 * @params direction is where the Critter will move, relative to where they already are.
+	 */		
 	protected final void walk(int direction) {  
 		myWorld.world[this.getY()][this.getX()].remove(this);
 		if(this instanceof Craig) {
@@ -167,7 +189,11 @@ public abstract class Critter {
 			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 		}
 	}
-	
+	/**
+	 * run Method
+	 * This method allows our Critters to move two positions in any direction in our simulated world.
+	 * @params direction is where the Critter will move, relative to where they already are.
+	 */	
 	protected final void run(int direction) {
 		runFlag = true;
 		this.walk(direction);
@@ -175,7 +201,12 @@ public abstract class Critter {
 		this.setEnergy(this.getEnergy() - Params.run_energy_cost);
 		runFlag = false;
 	}
-
+	/**
+	 * reproduce Method
+	 * This method allows our Critters to generate offspring.
+	 * @params offspring is a new Critter that becomes a baby
+	 * @params direction is where the baby is placed in the simulated world, relative to the parent.
+	 */
 	protected final void reproduce(Critter offspring, int direction) {
 		offspring.setX(this.getX());
 		offspring.setY(this.getY());
@@ -211,45 +242,6 @@ public abstract class Critter {
 		catch(Exception e) {
 			throw new InvalidCritterException("invalid critter");
 		}
-//		if(critter_class_name.equals("Craig")) {
-//			Craig newCraig = new Craig();
-//			newCraig.setX(Critter.getRandomInt(Params.world_width));
-//			newCraig.setY(Critter.getRandomInt(Params.world_height));
-//			newCraig.setEnergy(Params.start_energy);
-//			population.add(newCraig);
-//			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
-//		}
-//		else if(critter_class_name.equals("Critter1")){
-//			Critter1 newGodEmp = new Critter1();
-//			population.add(newGodEmp);
-//			myWorld.world[newGodEmp.getY()][newGodEmp.getX()].add(newGodEmp);
-//		}
-//		else if(critter_class_name.equals("Algae")){
-//			Algae newAlgae = new Algae();
-//			newAlgae.setX_coord(Critter.getRandomInt(Params.world_width));
-//			newAlgae.setY_coord(Critter.getRandomInt(Params.world_height));
-//			newAlgae.setEnergy(Params.start_energy);
-//			population.add(newAlgae);
-//			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
-//		}
-//		else if(critter_class_name.equals("Critter4")){
-//			Critter4 egg = new Critter4();
-//			population.add(egg);
-//			myWorld.world[egg.getY()][egg.getX()].add(egg);
-//		}
-//		else if(critter_class_name.equals("Critter3")){
-//			Critter3 Squirt = new Critter3();
-//			population.add(Squirt);
-//			myWorld.world[Squirt.getY()][Squirt.getX()].add(Squirt);
-//		}
-//		else if(critter_class_name.equals("Critter2")){
-//			Critter2 newLord = new Critter2();
-//			population.add(newLord);
-//			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
-//		}
-//		else {
-//			throw new InvalidCritterException("invalid critter");
-//		}
 	}
 	
 	/**
@@ -272,54 +264,7 @@ public abstract class Critter {
 		catch(Exception e) {
 			throw new InvalidCritterException("invalid critter");
 		}		
-		
-			/*if(critter_class_name.equals("Craig")) {
-				for (Critter crit : population) {
-					if(crit instanceof Craig)
-						result.add(crit);
-				}
-				return result;
-			}
-			else if(critter_class_name.equals("Critter1")){
-				for (Critter crit : population) {
-					if(crit instanceof Critter1)
-						result.add(crit);
-				}
-				return result;
-			}
-			else if(critter_class_name.equals("Algae")){
-				for (Critter crit : population) {
-					if(crit instanceof Algae)
-						result.add(crit);
-				}
-				return result;
-			}
-			else if(critter_class_name.equals("Critter4")){
-				for (Critter crit : population) {
-					if(crit instanceof Critter4)
-						result.add(crit);
-				}
-				return result;
-			}
-			else if(critter_class_name.equals("Critter3")){
-				for (Critter crit : population) {
-					if(crit instanceof Critter3)
-						result.add(crit);
-				}
-				return result;
-			}
-			else if(critter_class_name.equals("Critter2")){
-				for (Critter crit : population) {
-					if(crit instanceof Critter2)
-						result.add(crit);
-				}
-				return result;
-			} 
-			else {
-				throw new InvalidCritterException("invalid critter");
-			}*/
-	}
-	
+	}	
 	
 	
 	/**
@@ -360,45 +305,39 @@ public abstract class Critter {
 		protected void setEnergy(int new_energy_value) {
 			super.energy = new_energy_value;
 		}
-		
+	    /**
+	     * setX_coord method.
+	     * This method sets the X coordinate. 
+	     * @param new_x_coord is the x coordinate of our simulated world.
+	     */
 		protected void setX_coord(int new_x_coord) {
-			/*pastTestX = this.getX_coord();
-			if(testMoveFlag) {
-				super.x_coord = new_x_coord;
-				myWorld.world[pastTestY][pastTestX].remove(this);
-				myWorld.world[super.y_coord][super.x_coord].add(this);
-				testMoveFlag = false;
-			}
-			else {
-				super.x_coord = new_x_coord;
-				testMoveFlag = true;
-			}*/
 			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
 			super.x_coord = new_x_coord;
 			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);
 		}
-		
+	    /**
+	     * setY_coord method.
+	     * This method sets the Y coordinate. 
+	     * @param new_y_coord is the y coordinate of our simulated world.
+	     */	
 		protected void setY_coord(int new_y_coord) {
-			/*pastTestY = this.getY_coord();
-			if(testMoveFlag) {
-				super.y_coord = new_y_coord;
-				myWorld.world[pastTestY][pastTestX].remove(this);
-				myWorld.world[super.y_coord][super.x_coord].add(this);
-				testMoveFlag = false;
-			}
-			else {
-				super.y_coord = new_y_coord;
-				testMoveFlag = true;
-			}*/
 			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
 			super.y_coord = new_y_coord;
 			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);			
 		}
-		
+	    /**
+	     * getX_coord method.
+	     * This method sets the X coordinate. 
+	     * @return new x coordinate.
+	     */			
 		protected int getX_coord() {
 			return super.x_coord;
 		}
-		
+	    /**
+	     * getY_coord method.
+	     * This method sets the Y coordinate. 
+	     * @return new y coordinate.
+	     */		
 		protected int getY_coord() {
 			return super.y_coord;
 		}
@@ -424,9 +363,10 @@ public abstract class Critter {
 		}
 	}
 
-	/**
-	 * Clear the world of all critters, dead and alive
-	 */
+    /**
+     * clearWorld method.
+     * This method clears the simulated world. 
+     */
 	public static void clearWorld() {
 		population.clear();
 		babies.clear();
@@ -436,7 +376,11 @@ public abstract class Critter {
 			}
 		}
 	}
-	
+    /**
+     * worldTimeStep method.
+     * This method goes through each Critter's time step.
+     * @throws invalidCritterException
+     */	
 	public static void worldTimeStep() {
 		Iterator<Critter> itr = population.iterator();
 		while(itr.hasNext()) {
@@ -522,9 +466,11 @@ public abstract class Critter {
 			}
 		}
 	}
-	
+    /**
+     * displayWorld method.
+     * This method prints out our simulated world with the Critter's symbols.
+     */		
 	public static void displayWorld() {
-		// Complete this method.
 		System.out.print("+");
 		for(int i = 0; i < Params.world_width; i++) {
 			System.out.print("-");

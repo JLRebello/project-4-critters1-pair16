@@ -20,7 +20,10 @@ import java.util.*;
 public class Critter2 extends Critter {
 	
 	Critter2(){}
-
+    /**
+     * doTime method.
+     * This method allows this Critter to do their timeStep
+     */
 	@Override
 	public void doTimeStep() {
 		if(this.getEnergy() >= Params.min_reproduce_energy) {
@@ -32,13 +35,19 @@ public class Critter2 extends Critter {
 			this.moveFlag = true;
 		}		
 	}
-
+    /**
+     * fight method.
+     * This method allows this Critter to do encounter behavior
+     */
 	@Override
 	public boolean fight(String opponent) {
 		if (opponent.equals("G")) return false;
 		return true;
 	}
-	
+    /**
+     * toString method
+     * This method allows this Critter's symbol to be printed during "show"
+     */	
 	public String toString() {
 		return "P";
 	}

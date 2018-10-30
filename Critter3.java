@@ -19,7 +19,10 @@ import assignment4.Critter.TestCritter;
 public class Critter3 extends TestCritter {
 
     Critter3(){}
-
+    /**
+     * doTime method.
+     * This method allows this Critter to do their timeStep
+     */
     @Override
     public void doTimeStep() {
 		int activity = Critter.getRandomInt(3);
@@ -36,10 +39,12 @@ public class Critter3 extends TestCritter {
 			this.reproduce(egg,Critter.getRandomInt(8));
 		}
 		else {
-			//this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
     }
-
+    /**
+     * fight method.
+     * This method allows this Critter to do encounter behavior
+     */
     @Override
     public boolean fight(String opponent) {
 		if ((getEnergy() > (Params.start_energy/3)) && (!opponent.equals("Critter4"))) {
@@ -55,11 +60,14 @@ public class Critter3 extends TestCritter {
 			return false;
 		}
 		else {
-			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost); 
 			return false;
 		}
     }
-
+    /**
+     * toString method
+     * This method allows this Critter's symbol to be printed during "show"
+     */
     @Override
     public String toString () {
         return "S";

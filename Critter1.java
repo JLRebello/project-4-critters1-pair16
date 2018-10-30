@@ -21,19 +21,28 @@ public class Critter1 extends Critter {
 	// will only run and fight, will never run from a fight or reproduce
 
 	Critter1(){}
-	
+    /**
+     * doTime method.
+     * This method allows this Critter to do their timeStep
+     */
 	@Override
 	public void doTimeStep() {
 		run(Critter.getRandomInt(8));
 		this.moveFlag = true;
 	}
-
+    /**
+     * fight method.
+     * This method allows this Critter to do encounter behavior
+     */
 	@Override
 	public boolean fight(String opponent) {
 		if(opponent.equals("G")) return false;
 		return true;
 	}
-
+    /**
+     * toString method
+     * This method allows this Critter's symbol to be printed during "show"
+     */
 	@Override
 	public String toString () {
 		return "G";
