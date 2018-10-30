@@ -25,6 +25,8 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 	// added by us
 	public static CritterWorld myWorld = new CritterWorld();
+	public static boolean testMoveFlag = false;
+	public static int pastTestX, pastTestY;
 	
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
@@ -169,8 +171,8 @@ public abstract class Critter {
 		offspring.setX(this.getX());
 		offspring.setY(this.getY());
 		offspring.walk(direction);
-		offspring.setEnergy(this.getEnergy() / 2);
-		this.setEnergy(this.getEnergy() / 2);
+		offspring.setEnergy(this.getEnergy()/2);
+		this.setEnergy(this.getEnergy()/2);
 		myWorld.world[offspring.getY()][offspring.getX()].add(offspring);
 		babies.add(offspring);
 	}
@@ -351,11 +353,31 @@ public abstract class Critter {
 		}
 		
 		protected void setX_coord(int new_x_coord) {
-			super.x_coord = new_x_coord;
+			pastTestX = this.getX_coord();
+			if(testMoveFlag) {
+				super.x_coord = new_x_coord;
+				myWorld.world[pastTestY][pastTestX].remove(this);
+				myWorld.world[super.y_coord][super.x_coord].add(this);
+				testMoveFlag = false;
+			}
+			else {
+				super.x_coord = new_x_coord;
+				testMoveFlag = true;
+			}
 		}
 		
 		protected void setY_coord(int new_y_coord) {
-			super.y_coord = new_y_coord;
+			pastTestY = this.getY_coord();
+			if(testMoveFlag) {
+				super.y_coord = new_y_coord;
+				myWorld.world[pastTestY][pastTestX].remove(this);
+				myWorld.world[super.y_coord][super.x_coord].add(this);
+				testMoveFlag = false;
+			}
+			else {
+				super.y_coord = new_y_coord;
+				testMoveFlag = true;
+			}
 		}
 		
 		protected int getX_coord() {
@@ -405,7 +427,6 @@ public abstract class Critter {
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
-			current.setEnergy(current.getEnergy() - Params.rest_energy_cost);
 		}
 		Iterator<Critter> itr2 = population.iterator();
 		while(itr2.hasNext()) {
