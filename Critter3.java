@@ -18,11 +18,7 @@ import assignment4.Critter.TestCritter;
  */
 public class Critter3 extends TestCritter {
 
-    Critter3(){
-        this.setEnergy(Params.start_energy);
-        this.setX(Critter.getRandomInt(Params.world_width - 1));
-        this.setY(Critter.getRandomInt(Params.world_height - 1));
-    }
+    Critter3(){}
 
     @Override
     public void doTimeStep() {
@@ -40,8 +36,6 @@ public class Critter3 extends TestCritter {
 		else if(this.getEnergy() >= Params.min_reproduce_energy) {
 			Critter3 egg = new Critter3();
 			this.reproduce(egg,Critter.getRandomInt(8));
-			this.setEnergy(this.getEnergy()/2);
-			egg.setEnergy(this.getEnergy()/2);
 		}
 		else {
 			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);

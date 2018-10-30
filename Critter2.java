@@ -19,11 +19,7 @@ import java.util.*;
 
 public class Critter2 extends Critter {
 	
-	Critter2(){
-		this.setEnergy(Params.start_energy);
-		this.setX(Critter.getRandomInt(Params.world_width - 1));
-		this.setY(Critter.getRandomInt(Params.world_height - 1));
-	}
+	Critter2(){}
 
 	@Override
 	public void doTimeStep() {

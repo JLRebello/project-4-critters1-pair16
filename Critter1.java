@@ -20,11 +20,7 @@ import assignment4.Critter.TestCritter;
 public class Critter1 extends Critter {
 	// will only run and fight, will never run from a fight or reproduce
 
-	Critter1(){
-		this.setEnergy(Params.start_energy);
-		this.setX(Critter.getRandomInt(Params.world_width - 1));
-		this.setY(Critter.getRandomInt(Params.world_height - 1));
-	}
+	Critter1(){}
 	
 	@Override
 	public void doTimeStep() {

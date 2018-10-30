@@ -162,6 +162,8 @@ public abstract class Critter {
 		offspring.setX(this.getX());
 		offspring.setY(this.getY());
 		offspring.walk(direction);
+		offspring.setEnergy(this.getEnergy()/2);
+		this.setEnergy(this.getEnergy()/2);
 		myWorld.world[offspring.getY()][offspring.getX()].add(offspring);
 		babies.add(offspring);
 	}
@@ -182,14 +184,13 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
 			Critter newCritter = (Critter) Class.forName(myPackage + "." + critter_class_name).newInstance();
+			newCritter.setEnergy(Params.start_energy);
+			newCritter.setX(Critter.getRandomInt(Params.world_width));
+			newCritter.setY(Critter.getRandomInt(Params.world_height));
+			population.add(newCritter);
+			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCritter);
 		}
-		catch(ClassNotFoundException o) {
-			throw new InvalidCritterException("invalid critter");
-		}
-		catch (InstantiationException o) {
-			throw new InvalidCritterException("invalid critter");
-		}
-		catch (IllegalAccessException o) {
+		catch(Exception e) {
 			throw new InvalidCritterException("invalid critter");
 		}
 //		if(critter_class_name.equals("Craig")) {
@@ -241,7 +242,20 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-			if(critter_class_name.equals("Craig")) {
+		try {
+			Critter myCrit = (Critter)Class.forName(myPackage + "." + critter_class_name).newInstance();
+			for (Critter crit : population) {
+				if(myCrit.getClass().isInstance(crit)) {
+					result.add(crit);
+				}
+			}
+			return result;
+		}
+		catch(Exception e) {
+			throw new InvalidCritterException("invalid critter");
+		}		
+		
+			/*if(critter_class_name.equals("Craig")) {
 				for (Critter crit : population) {
 					if(crit instanceof Craig)
 						result.add(crit);
@@ -285,7 +299,7 @@ public abstract class Critter {
 			} 
 			else {
 				throw new InvalidCritterException("invalid critter");
-			}
+			}*/
 	}
 	
 	
@@ -393,17 +407,6 @@ public abstract class Critter {
 				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
 		}
-		/*int index = 0;
-		while(index < population.size()) {
-			population.get(index).doTimeStep();
-			if(population.get(index).getEnergy() <= 0) {
-				population.remove(population.get(index));
-			}
-			else {
-				index++;
-			}
-		}*/
-	
 		for(int i = 0; i < Params.world_height; i++) {
 			for(int j = 0; j < Params.world_width; j++) {
 				while(myWorld.world[i][j].size() > 1){
@@ -414,25 +417,19 @@ public abstract class Critter {
 					if (myWorld.world[i][j].size() <= 1) break;
 					if (myWorld.world[i][j].contains(c1) && myWorld.world[i][j].contains(c2)) {
 						if (!a && !b) {									//if no one wants to fight
-//							if((c1.moveFlag == false) && (c2.moveFlag == false)){
 								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
 								myWorld.world[i][j].remove(c2);
 								population.remove(c2);
-//							}
 						}
 						else if((a == true) && (b == false)) {
-//							if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
 								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
 								myWorld.world[i][j].remove(c2);
 								population.remove(c2);
-//							}
 						}
 						else if((a == false) && (b == true)) {
-//							if(myWorld.world[i][j].size() > 1) {		//check to see if someone moved during fight
 								c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
 								myWorld.world[i][j].remove(c1);
 								population.remove(c1);
-//							}
 						}
 						else if((a == true) && (b == true)) {
 							int aScore = Critter.getRandomInt(5);
