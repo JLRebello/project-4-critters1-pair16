@@ -60,9 +60,9 @@ public abstract class Critter {
 	
 	protected final void walk(int direction) {  
 		myWorld.world[this.getY()][this.getX()].remove(this);
-		//if(this instanceof Craig) {
-		//	this.moveFlag = true;
-		//}
+		if(this instanceof Craig) {
+			this.moveFlag = true;
+		}
 		if(direction == 0) {
 			if(this.getX() == Params.world_width - 1) {
 				this.setX(0);
@@ -195,7 +195,7 @@ public abstract class Critter {
 			newCritter.setX(Critter.getRandomInt(Params.world_width));
 			newCritter.setY(Critter.getRandomInt(Params.world_height));
 			population.add(newCritter);
-			myWorld.world[Critter.getRandomInt(Params.world_height)][Critter.getRandomInt(Params.world_width)].add(newCritter);
+			myWorld.world[newCritter.getY()][newCritter.getX()].add(newCritter);
 		}
 		catch(Exception e) {
 			throw new InvalidCritterException("invalid critter");
@@ -409,7 +409,7 @@ public abstract class Critter {
 		Iterator<Critter> itr2 = population.iterator();
 		while(itr2.hasNext()) {
 			Critter tempCrit = itr2.next();
-			if(tempCrit.getEnergy() <= 0) {			//dying critters
+			if(tempCrit.getEnergy() <= 0) {			//remove dead critters
 				itr2.remove();
 				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
@@ -424,17 +424,20 @@ public abstract class Critter {
 					if (myWorld.world[i][j].size() <= 1) break;
 					if (myWorld.world[i][j].contains(c1) && myWorld.world[i][j].contains(c2)) {
 						if (!a && !b) {									//if no one wants to fight
-								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
+								c2.setEnergy(0);
 								myWorld.world[i][j].remove(c2);
 								population.remove(c2);
 						}
 						else if((a == true) && (b == false)) {
-								c1.setEnergy(c1.getEnergy() + c2.getEnergy()/2);
+								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
+								c2.setEnergy(0);
 								myWorld.world[i][j].remove(c2);
 								population.remove(c2);
 						}
 						else if((a == false) && (b == true)) {
-								c2.setEnergy(c2.getEnergy() + c1.getEnergy()/2);
+								c2.setEnergy(c2.getEnergy() + (c1.getEnergy() / 2));
+								c1.setEnergy(0);
 								myWorld.world[i][j].remove(c1);
 								population.remove(c1);
 						}
@@ -442,11 +445,13 @@ public abstract class Critter {
 							int aScore = Critter.getRandomInt(5);
 							int bScore = Critter.getRandomInt(5);
 							if (bScore > aScore) {
-								c2.setEnergy(c2.getEnergy() + c1.getEnergy() / 2);
+								c2.setEnergy(c2.getEnergy() + (c1.getEnergy() / 2));
+								c1.setEnergy(0);
 								myWorld.world[i][j].remove(c1);
 								population.remove(c1);
 							} else {
-								c1.setEnergy(c1.getEnergy() + c2.getEnergy() / 2);
+								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
+								c2.setEnergy(0);
 								myWorld.world[i][j].remove(c2);
 								population.remove(c2);
 							}
@@ -455,14 +460,22 @@ public abstract class Critter {
 				}
 			}
 		}
+		Iterator<Critter> itr3 = population.iterator();
+		while(itr3.hasNext()) {
+			Critter tempCrit = itr3.next();
+			if(tempCrit.getEnergy() <= 0) {			//remove dead critters
+				itr3.remove();
+				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
+			}
+		}
 		int babyPop = babies.size();
 		for(int i = 0; i < babyPop; i++) {		//add babies into general population
 			population.add(babies.get(i));
 		}
 		babies.clear();
-		//for(Critter crit : population) {
-		//	crit.moveFlag = false;
-		//}
+		for(Critter crit : population) {
+			crit.moveFlag = false;
+		}
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
 			try {
 				makeCritter("Algae");
