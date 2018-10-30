@@ -153,7 +153,7 @@ public abstract class Critter {
 		}
 		myWorld.world[this.getY()][this.getX()].add(this);
 		if(runFlag != true) {
-			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost - Params.rest_energy_cost);
 		}
 	}
 	
@@ -161,7 +161,7 @@ public abstract class Critter {
 		runFlag = true;
 		this.walk(direction);
 		this.walk(direction);
-		this.setEnergy(this.getEnergy() - Params.run_energy_cost);
+		this.setEnergy(this.getEnergy() - Params.run_energy_cost - Params.rest_energy_cost);
 		runFlag = false;
 	}
 
@@ -169,8 +169,8 @@ public abstract class Critter {
 		offspring.setX(this.getX());
 		offspring.setY(this.getY());
 		offspring.walk(direction);
-		offspring.setEnergy(this.getEnergy()/2);
-		this.setEnergy(this.getEnergy()/2);
+		offspring.setEnergy((this.getEnergy() / 2) - Params.rest_energy_cost);
+		this.setEnergy(this.getEnergy() / 2);
 		myWorld.world[offspring.getY()][offspring.getX()].add(offspring);
 		babies.add(offspring);
 	}
