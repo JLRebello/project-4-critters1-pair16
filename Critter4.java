@@ -35,7 +35,7 @@ public class Critter4 extends Critter {
 			this.reproduce(egg,Critter.getRandomInt(8));
 		}
 		else {
-			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
+			//this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
 	}
 
@@ -55,6 +55,7 @@ public class Critter4 extends Critter {
 		}
 		else {
 			this.setEnergy(this.getEnergy() - Params.walk_energy_cost- Params.rest_energy_cost);
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 			return false;
 		}
 	}

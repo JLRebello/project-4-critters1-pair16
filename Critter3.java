@@ -36,7 +36,7 @@ public class Critter3 extends TestCritter {
 			this.reproduce(egg,Critter.getRandomInt(8));
 		}
 		else {
-			this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
+			//this.setEnergy(this.getEnergy()-Params.rest_energy_cost);
 		}
     }
 
