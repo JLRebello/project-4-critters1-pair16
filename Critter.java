@@ -442,6 +442,7 @@ public abstract class Critter {
 		while(itr.hasNext()) {
 			Critter current = (Critter)itr.next();
 			current.doTimeStep();
+			current.setEnergy(current.getEnergy() - Params.rest_energy_cost);
 		}
 		Iterator<Critter> itr2 = population.iterator();
 		while(itr2.hasNext()) {
