@@ -14,7 +14,10 @@ import java.util.ArrayList;
 
 public class CritterWorld {
     public static ArrayList[][] world;
-
+    /**
+     * CritterWorld method
+     * This method creates our simulated world.
+     */
     public CritterWorld() {
         world = new ArrayList[Params.world_height][Params.world_width];
         for(int i = 0; i < Params.world_height; i++) {
@@ -23,7 +26,4 @@ public class CritterWorld {
             }
         }
     }
-
-
-    // write methods for getting char symbols for whatever critter is accessed
 }
