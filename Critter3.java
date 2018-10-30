@@ -55,6 +55,7 @@ public class Critter3 extends TestCritter {
 			return false;
 		}
 		else {
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 			return false;
 		}
     }
