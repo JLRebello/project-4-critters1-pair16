@@ -55,7 +55,7 @@ public class Critter4 extends Critter {
 			return false;
 		}
 		else {
-			this.setEnergy(this.getEnergy() - Params.walk_energy_cost - Params.rest_energy_cost);
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 			return false;
 		}
 	}
