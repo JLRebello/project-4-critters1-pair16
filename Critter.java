@@ -55,10 +55,19 @@ public abstract class Critter {
 	public boolean moveFlag = false;
 	public boolean runFlag = false;
 
-	protected int getX() {return x_coord;}
-	protected int getY() {return y_coord;}
-	protected void setX(int foo) {x_coord = foo;}
-	protected void setY(int foo) {y_coord = foo;}
+	protected int getX() {return this.x_coord;}
+	protected int getY() {return this.y_coord;}
+	protected void setX(int foo) {
+		myWorld.world[this.getX()][this.getY()].remove(this);
+		this.x_coord = foo;
+		myWorld.world[this.getX()][this.getY()].add(this);
+	}
+		
+	protected void setY(int foo) {
+		myWorld.world[this.getX()][this.getY()].remove(this);
+		this.y_coord = foo;
+		myWorld.world[this.getX()][this.getY()].add(this);
+	}
 	
 	protected final void walk(int direction) {  
 		myWorld.world[this.getY()][this.getX()].remove(this);
@@ -353,7 +362,7 @@ public abstract class Critter {
 		}
 		
 		protected void setX_coord(int new_x_coord) {
-			pastTestX = this.getX_coord();
+			/*pastTestX = this.getX_coord();
 			if(testMoveFlag) {
 				super.x_coord = new_x_coord;
 				myWorld.world[pastTestY][pastTestX].remove(this);
@@ -363,11 +372,14 @@ public abstract class Critter {
 			else {
 				super.x_coord = new_x_coord;
 				testMoveFlag = true;
-			}
+			}*/
+			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
+			super.x_coord = new_x_coord;
+			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);
 		}
 		
 		protected void setY_coord(int new_y_coord) {
-			pastTestY = this.getY_coord();
+			/*pastTestY = this.getY_coord();
 			if(testMoveFlag) {
 				super.y_coord = new_y_coord;
 				myWorld.world[pastTestY][pastTestX].remove(this);
@@ -377,7 +389,10 @@ public abstract class Critter {
 			else {
 				super.y_coord = new_y_coord;
 				testMoveFlag = true;
-			}
+			}*/
+			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
+			super.y_coord = new_y_coord;
+			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);			
 		}
 		
 		protected int getX_coord() {
