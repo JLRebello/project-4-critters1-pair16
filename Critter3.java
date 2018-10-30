@@ -13,8 +13,8 @@ package assignment4;
 import assignment4.Critter.TestCritter;
 /*Critter3’s are smart but lazy. 
  * They only fight when they have 1/3 or more of their initial energy, and when they walk or rest, 
- * they use the energy it takes a normal critter to run. 
- * They never run themselves, but they do reproduce randomly.
+ * They never run, but they do reproduce randomly.
+ * Critter3's are best friends with Critter4's and will not fight them
  */
 public class Critter3 extends TestCritter {
 
@@ -24,7 +24,7 @@ public class Critter3 extends TestCritter {
     public void doTimeStep() {
 		int activity = Critter.getRandomInt(3);
 		if(activity == 0) {
-			walk(Critter.getRandomInt(8));   // Squirtle is out of shape so he only uses run energy to walk
+			walk(Critter.getRandomInt(8));   
 			this.moveFlag = true;
 		}
 		else if(activity == 1) {				
@@ -42,7 +42,7 @@ public class Critter3 extends TestCritter {
 
     @Override
     public boolean fight(String opponent) {
-		if (getEnergy() > (Params.start_energy/3)) {
+		if ((getEnergy() > (Params.start_energy/3)) && (!opponent.equals("Critter4"))) {
 			return true;
 		}
 		int check = this.getX() - 1 ;
@@ -50,12 +50,12 @@ public class Critter3 extends TestCritter {
 			check = Params.world_width-1;
 		}
 		if((this.moveFlag == false) && (myWorld.world[this.getY()][check].isEmpty())){
-			run(4);
+			walk(4);
 			this.moveFlag = true;
 			return false;
 		}
 		else {
-			this.setEnergy(this.getEnergy() - Params.run_energy_cost - Params.rest_energy_cost);
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 			return false;
 		}
     }

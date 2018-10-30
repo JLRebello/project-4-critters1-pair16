@@ -13,7 +13,8 @@ package assignment4;
 import assignment4.Critter.TestCritter;
 /*Critter4’s are smart and athletic. 
  * They only fight when they have half or more of their initial energy, 
- * and they run with the energy it takes a normal critter to walk. They reproduce randomly.
+ * They reproduce randomly.
+ * Critter4's are best friends with Critter3's and will not fight them.
  */
 public class Critter4 extends Critter {
 
@@ -26,7 +27,7 @@ public class Critter4 extends Critter {
 			walk(Critter.getRandomInt(8));
 			this.moveFlag = true;
 		}
-		else if(activity == 1) {				// Yoshi is athletic so he only uses walk energy to run
+		else if(activity == 1) {				
 			run(Critter.getRandomInt(8));
 			this.moveFlag = true;
 		}
@@ -41,7 +42,7 @@ public class Critter4 extends Critter {
 
 	@Override
 	public boolean fight(String opponent) {
-		if (getEnergy() > (Params.start_energy/2)) {
+		if (getEnergy() > (Params.start_energy/2) && (!opponent.equals("Critter3"))) {
 			return true;
 		}
 		int check = this.getX() + 1 ;
@@ -54,7 +55,7 @@ public class Critter4 extends Critter {
 			return false;
 		}
 		else {
-			this.setEnergy(this.getEnergy() - Params.walk_energy_cost- Params.rest_energy_cost);
+			//this.setEnergy(this.getEnergy() - Params.walk_energy_cost- Params.rest_energy_cost);
 			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 			return false;
 		}
