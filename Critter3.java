@@ -26,12 +26,10 @@ public class Critter3 extends TestCritter {
 		if(activity == 0) {
 			walk(Critter.getRandomInt(8));   // Squirtle is out of shape so he only uses run energy to walk
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy()-Params.run_energy_cost);
 		}
 		else if(activity == 1) {				
 			run(Critter.getRandomInt(8));
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);
 		}
 		else if(this.getEnergy() >= Params.min_reproduce_energy) {
 			Critter3 egg = new Critter3();

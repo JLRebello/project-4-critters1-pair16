@@ -26,11 +26,6 @@ public class Critter1 extends Critter {
 	public void doTimeStep() {
 		run(Critter.getRandomInt(8));
 		this.moveFlag = true;
-		this.setEnergy(this.getEnergy() - Params.rest_energy_cost);
-		if (this.getEnergy() <= 0) {
-			Critter.myWorld.world[getX()][getY()].remove(this);
-			TestCritter.getPopulation().remove(this);
-		}
 	}
 
 	@Override

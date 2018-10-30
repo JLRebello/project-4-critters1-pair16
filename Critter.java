@@ -60,9 +60,9 @@ public abstract class Critter {
 	
 	protected final void walk(int direction) {  
 		myWorld.world[this.getY()][this.getX()].remove(this);
-		if(this instanceof Craig) {
-			this.moveFlag = true;
-		}
+		//if(this instanceof Craig) {
+		//	this.moveFlag = true;
+		//}
 		if(direction == 0) {
 			if(this.getX() == Params.world_width - 1) {
 				this.setX(0);
@@ -460,9 +460,9 @@ public abstract class Critter {
 			population.add(babies.get(i));
 		}
 		babies.clear();
-		for(Critter crit : population) {
-			crit.moveFlag = false;
-		}
+		//for(Critter crit : population) {
+		//	crit.moveFlag = false;
+		//}
 		for(int i = 0; i < Params.refresh_algae_count; i++) {
 			try {
 				makeCritter("Algae");

@@ -25,12 +25,10 @@ public class Critter4 extends Critter {
 		if(activity == 0) {
 			walk(Critter.getRandomInt(8));
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);
 		}
 		else if(activity == 1) {				// Yoshi is athletic so he only uses walk energy to run
 			run(Critter.getRandomInt(8));
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);
 		}
 		else if(this.getEnergy() >= Params.min_reproduce_energy) {
 			Critter4 egg = new Critter4();

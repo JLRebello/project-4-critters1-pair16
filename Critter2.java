@@ -26,13 +26,10 @@ public class Critter2 extends Critter {
 		if(this.getEnergy() >= Params.min_reproduce_energy) {
 			Critter2 lilLord = new Critter2();
 			this.reproduce(lilLord,Critter.getRandomInt(8));
-			this.setEnergy(this.getEnergy()/2);
-			lilLord.setEnergy(this.getEnergy()/2);
 		}
 		else{
 			walk(Critter.getRandomInt(8));
 			this.moveFlag = true;
-			this.setEnergy(this.getEnergy()-Params.walk_energy_cost);		//power Lord is supernatural so he uses walk energy to run
 		}		
 	}
 
