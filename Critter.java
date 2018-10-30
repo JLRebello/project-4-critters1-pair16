@@ -51,6 +51,7 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	public boolean moveFlag = false;
+	public boolean runFlag = false;
 
 	protected int getX() {return x_coord;}
 	protected int getY() {return y_coord;}
@@ -151,11 +152,17 @@ public abstract class Critter {
 			}
 		}
 		myWorld.world[this.getY()][this.getX()].add(this);
+		if(runFlag != true) {
+			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
+		}
 	}
 	
 	protected final void run(int direction) {
+		runFlag = true;
 		this.walk(direction);
 		this.walk(direction);
+		this.setEnergy(this.getEnergy() - Params.run_energy_cost);
+		runFlag = false;
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
@@ -402,7 +409,7 @@ public abstract class Critter {
 		Iterator<Critter> itr2 = population.iterator();
 		while(itr2.hasNext()) {
 			Critter tempCrit = itr2.next();
-			if(tempCrit.getEnergy() <= 0) {
+			if(tempCrit.getEnergy() <= 0) {			//dying critters
 				itr2.remove();
 				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
