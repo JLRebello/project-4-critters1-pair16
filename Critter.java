@@ -150,7 +150,7 @@ public abstract class Critter {
 				this.setY(this.getY() + 1);
 			}
 		}
-		myWorld.world[this.getY()][this.getX()].add(this);		// check if this works!!!!!!!!!!!!!!!
+		myWorld.world[this.getY()][this.getX()].add(this);
 	}
 	
 	protected final void run(int direction) {
@@ -180,45 +180,57 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		if(critter_class_name.equals("Craig")) {
-			Craig newCraig = new Craig();
-			newCraig.setX(Critter.getRandomInt(Params.world_width));
-			newCraig.setY(Critter.getRandomInt(Params.world_height));
-			newCraig.setEnergy(Params.start_energy);
-			population.add(newCraig);
-			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
+		try {
+			Critter newCritter = (Critter) Class.forName(myPackage + "." + critter_class_name).newInstance();
 		}
-		else if(critter_class_name.equals("Critter1")){
-			Critter1 newGodEmp = new Critter1();
-			population.add(newGodEmp);
-			myWorld.world[newGodEmp.getY()][newGodEmp.getX()].add(newGodEmp);
-		}
-		else if(critter_class_name.equals("Algae")){
-			Algae newAlgae = new Algae();
-			newAlgae.setX_coord(Critter.getRandomInt(Params.world_width));
-			newAlgae.setY_coord(Critter.getRandomInt(Params.world_height));
-			newAlgae.setEnergy(Params.start_energy);
-			population.add(newAlgae);
-			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
-		}
-		else if(critter_class_name.equals("Critter4")){
-			Critter4 egg = new Critter4();
-			population.add(egg);
-			myWorld.world[egg.getY()][egg.getX()].add(egg);
-		}
-		else if(critter_class_name.equals("Critter3")){
-			Critter3 Squirt = new Critter3();
-			population.add(Squirt);
-			myWorld.world[Squirt.getY()][Squirt.getX()].add(Squirt);
-		}
-		else if(critter_class_name.equals("Critter2")){
-			Critter2 newLord = new Critter2();
-			population.add(newLord);
-			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
-		}
-		else {
+		catch(ClassNotFoundException o) {
 			throw new InvalidCritterException("invalid critter");
 		}
+		catch (InstantiationException o) {
+			throw new InvalidCritterException("invalid critter");
+		}
+		catch (IllegalAccessException o) {
+			throw new InvalidCritterException("invalid critter");
+		}
+//		if(critter_class_name.equals("Craig")) {
+//			Craig newCraig = new Craig();
+//			newCraig.setX(Critter.getRandomInt(Params.world_width));
+//			newCraig.setY(Critter.getRandomInt(Params.world_height));
+//			newCraig.setEnergy(Params.start_energy);
+//			population.add(newCraig);
+//			myWorld.world[newCraig.getY()][newCraig.getX()].add(newCraig);
+//		}
+//		else if(critter_class_name.equals("Critter1")){
+//			Critter1 newGodEmp = new Critter1();
+//			population.add(newGodEmp);
+//			myWorld.world[newGodEmp.getY()][newGodEmp.getX()].add(newGodEmp);
+//		}
+//		else if(critter_class_name.equals("Algae")){
+//			Algae newAlgae = new Algae();
+//			newAlgae.setX_coord(Critter.getRandomInt(Params.world_width));
+//			newAlgae.setY_coord(Critter.getRandomInt(Params.world_height));
+//			newAlgae.setEnergy(Params.start_energy);
+//			population.add(newAlgae);
+//			myWorld.world[newAlgae.getY()][newAlgae.getX()].add(newAlgae);
+//		}
+//		else if(critter_class_name.equals("Critter4")){
+//			Critter4 egg = new Critter4();
+//			population.add(egg);
+//			myWorld.world[egg.getY()][egg.getX()].add(egg);
+//		}
+//		else if(critter_class_name.equals("Critter3")){
+//			Critter3 Squirt = new Critter3();
+//			population.add(Squirt);
+//			myWorld.world[Squirt.getY()][Squirt.getX()].add(Squirt);
+//		}
+//		else if(critter_class_name.equals("Critter2")){
+//			Critter2 newLord = new Critter2();
+//			population.add(newLord);
+//			myWorld.world[newLord.getY()][newLord.getX()].add(newLord);
+//		}
+//		else {
+//			throw new InvalidCritterException("invalid critter");
+//		}
 	}
 	
 	/**
