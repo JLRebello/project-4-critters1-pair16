@@ -10,6 +10,7 @@ public class InvalidCritterException extends Exception {
 	
 	public String toString() {
 		return "Invalid Critter Class: " + offending_class;
+
 	}
 
 }

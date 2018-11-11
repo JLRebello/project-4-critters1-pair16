@@ -13,6 +13,8 @@ package assignment4;
 
 import java.util.*;
 
+
+
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
@@ -54,6 +56,7 @@ public abstract class Critter {
 	private int y_coord;
 	public boolean moveFlag = false;
 	public boolean runFlag = false;
+	public static boolean fightFlag = false;
     /**
      * getX_coord method.
      * This method sets the X coordinate. 
@@ -91,104 +94,117 @@ public abstract class Critter {
 	 * This method allows our Critters to move one position in any direction in our simulated world.
 	 * @params direction is where the Critter will move, relative to where they already are.
 	 */		
-	protected final void walk(int direction) {  
-		myWorld.world[this.getY()][this.getX()].remove(this);
+	protected final void walk(int direction) { 
+		int currX = this.getX();
+		int currY = this.getY();
+		int planX = this.getX();
+		int planY = this.getY();
 		if(this instanceof Craig) {
 			this.moveFlag = true;
 		}
 		if(direction == 0) {
-			if(this.getX() == Params.world_width - 1) {
-				this.setX(0);
+			if(currX == Params.world_width - 1) {
+				planX = 0;
 			}
 			else {
-				this.setX(this.getX() + 1);
+				planX = currX + 1;
 			}
 		}
 		else if(direction == 1) {
-			if(this.getX() == Params.world_width - 1) {
-				this.setX(0);
+			if(currX == Params.world_width - 1) {
+				planX = 0;
 			}
 			else {
-				this.setX(this.getX()+1);
+				planX = currX + 1;
 			}
-			if(this.getY() == 0) {
-				this.setY(Params.world_height - 1);
+			if(currY == 0) {
+				planY = Params.world_height - 1;
 			}
 			else {
-				this.setY(this.getY() - 1);
+				planY = currY - 1;
 			}
 		}
 		else if(direction == 2) {
-			if(this.getY() == 0) {
-				this.setY(Params.world_height - 1);
+			if(currY == 0) {
+				planY = Params.world_height - 1;
 			}
 			else {
-				this.setY(this.getY() - 1);
+				planY = currY - 1;
 			}
 		}
 		else if(direction == 3) {
-			if(this.getX() == 0) {
-				this.setX(Params.world_width - 1);
+			if(currX == 0) {
+				planX = Params.world_width - 1;
 			}
 			else {
-				this.setX(this.getX()-1);
+				planX = currX - 1;
 			}
-			if(this.getY() == 0) {
-				this.setY(Params.world_height - 1);
+			if(currY == 0) {
+				planY = Params.world_height - 1;
 			}
 			else {
-				this.setY(this.getY() - 1);
+				planY = currY - 1;
 			}
 		}
 		else if(direction == 4) {
-			if(this.getX() == 0) {
-				this.setX(Params.world_width - 1);
+			if(currX == 0) {
+				planX = Params.world_width - 1;
 			}
 			else {
-				this.setX(this.getX() - 1);
+				planX = currX - 1;
 			}
 		}
 		else if(direction == 5) {
-			if(this.getX() == 0) {
-				this.setX(Params.world_width - 1);
+			if(currX == 0) {
+				planX = Params.world_width - 1;
 			}
 			else {
-				this.setX(this.getX()-1);
+				planX = currX - 1;
 			}
-			if(this.getY() == Params.world_height - 1) {
-				this.setY(0);
+			if(currY == Params.world_height - 1) {
+				planY = 0; 
 			}
 			else {
-				this.setY(this.getY() + 1);
+				planY = currY + 1; 
 			}
 		}
 		else if(direction == 6) {
-			if(this.getY() == Params.world_height - 1) {
-				this.setY(0);
+			if(currY == Params.world_height - 1) {
+				planY = 0; 
 			}
 			else {
-				this.setY(this.getY() + 1);
+				planY = currY + 1; 
 			}
 		}
 		else if(direction == 7) {
-			if(this.getX() == Params.world_width - 1) {
-				this.setX(0);
+			if(currX == Params.world_width - 1) {
+				planX = 0;
 			}
 			else {
-				this.setX(this.getX()+1);
+				planX = currX + 1; 
 			}
-			if(this.getY() == Params.world_height - 1) {
-				this.setY(0);
+			if(currY == Params.world_height - 1) {
+				planY = 0;
 			}
 			else {
-				this.setY(this.getY() + 1);
+				planY = currY + 1;
 			}
 		}
-		myWorld.world[this.getY()][this.getX()].add(this);
 		if(runFlag != true) {
 			this.setEnergy(this.getEnergy() - Params.walk_energy_cost);
 		}
+		if(fightFlag == true) {									//if during a fight
+			if(myWorld.world[planY][planX].size() == 0) {		//only move if the desired space is empty
+				this.setX(planX);
+				this.setY(planY);
+			}
+		}
+		else {
+			this.setX(planX);
+			this.setY(planY);
+		}
 	}
+	
 	/**
 	 * run Method
 	 * This method allows our Critters to move two positions in any direction in our simulated world.
@@ -213,7 +229,6 @@ public abstract class Critter {
 		offspring.walk(direction);
 		offspring.setEnergy(this.getEnergy()/2);
 		this.setEnergy(this.getEnergy()/2);
-		myWorld.world[offspring.getY()][offspring.getX()].add(offspring);
 		babies.add(offspring);
 	}
 
@@ -237,7 +252,6 @@ public abstract class Critter {
 			newCritter.setX(Critter.getRandomInt(Params.world_width));
 			newCritter.setY(Critter.getRandomInt(Params.world_height));
 			population.add(newCritter);
-			myWorld.world[newCritter.getY()][newCritter.getX()].add(newCritter);
 		}
 		catch(Exception e) {
 			throw new InvalidCritterException("invalid critter");
@@ -311,9 +325,9 @@ public abstract class Critter {
 	     * @param new_x_coord is the x coordinate of our simulated world.
 	     */
 		protected void setX_coord(int new_x_coord) {
-			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
+			myWorld.world[this.getY_coord()][this.getX_coord()].remove(this);
 			super.x_coord = new_x_coord;
-			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);
+			myWorld.world[this.getY_coord()][this.getX_coord()].add(this);
 		}
 	    /**
 	     * setY_coord method.
@@ -321,9 +335,9 @@ public abstract class Critter {
 	     * @param new_y_coord is the y coordinate of our simulated world.
 	     */	
 		protected void setY_coord(int new_y_coord) {
-			myWorld.world[this.getX_coord()][this.getY_coord()].remove(this);
+			myWorld.world[this.getY_coord()][this.getX_coord()].remove(this);
 			super.y_coord = new_y_coord;
-			myWorld.world[this.getX_coord()][this.getY_coord()].add(this);			
+			myWorld.world[this.getY_coord()][this.getX_coord()].add(this);			
 		}
 	    /**
 	     * getX_coord method.
@@ -392,56 +406,80 @@ public abstract class Critter {
 		while(itr2.hasNext()) {
 			Critter tempCrit = itr2.next();
 			if(tempCrit.getEnergy() <= 0) {			//remove dead critters
-				itr2.remove();
+				itr2.remove();						//removes from population
 				myWorld.world[tempCrit.getY()][tempCrit.getX()].remove(tempCrit);
 			}
 		}
 		for(int i = 0; i < Params.world_height; i++) {
 			for(int j = 0; j < Params.world_width; j++) {
-				while(myWorld.world[i][j].size() > 1){
-					Critter c1 = (Critter) myWorld.world[i][j].get(0);
-					Critter c2 = (Critter) myWorld.world[i][j].get(1);
-					boolean a = c1.fight(c2.toString());
-					boolean b = c2.fight(c1.toString());
-					if (myWorld.world[i][j].size() <= 1) break;
-					if (myWorld.world[i][j].contains(c1) && myWorld.world[i][j].contains(c2)) {
+				ArrayList<Critter> adults = new ArrayList();
+				for(int k = 0; k < myWorld.world[i][j].size(); k++) {
+					if(!babies.contains(myWorld.world[i][j].get(k))) {
+						adults.add((Critter)myWorld.world[i][j].get(k));
+					}
+				}
+				while(adults.size() > 1){ 						//FIGHT SEQUENCE
+					fightFlag = true;
+					Critter c0 = (Critter) adults.get(0);
+					Critter c1 = (Critter) adults.get(1);
+					boolean a = c0.fight(c1.toString());
+					boolean b = c1.fight(c0.toString());
+					
+					adults.clear();
+					for(int k = 0; k < myWorld.world[i][j].size(); k++) {
+						if(!babies.contains(myWorld.world[i][j].get(k))) {
+							adults.add((Critter)myWorld.world[i][j].get(k));
+						}
+					}
+					if (adults.size() <= 1) { break;}
+					if((adults.get(0) != c0) || (adults.get(1) != c1)){
+						continue;
+					}
+					else {
 						if (!a && !b) {									//if no one wants to fight
-								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
-								c2.setEnergy(0);
-								myWorld.world[i][j].remove(c2);
-								population.remove(c2);
+							c0.setEnergy(c0.getEnergy() + (c1.getEnergy() / 2));
+							c1.setEnergy(0);
+							myWorld.world[i][j].remove(c1);
+							population.remove(c1);
+							adults.remove(c1);
 						}
 						else if((a == true) && (b == false)) {
-								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
-								c2.setEnergy(0);
-								myWorld.world[i][j].remove(c2);
-								population.remove(c2);
+							c0.setEnergy(c0.getEnergy() + (c1.getEnergy() / 2));
+							c1.setEnergy(0);
+							myWorld.world[i][j].remove(c1);
+							population.remove(c1);
+							adults.remove(c1);
+
 						}
 						else if((a == false) && (b == true)) {
-								c2.setEnergy(c2.getEnergy() + (c1.getEnergy() / 2));
-								c1.setEnergy(0);
-								myWorld.world[i][j].remove(c1);
-								population.remove(c1);
+							c1.setEnergy(c1.getEnergy() + (c0.getEnergy() / 2));
+							c0.setEnergy(0);
+							myWorld.world[i][j].remove(c0);
+							population.remove(c0);
+							adults.remove(c0);
 						}
 						else if((a == true) && (b == true)) {
 							int aScore = Critter.getRandomInt(5);
 							int bScore = Critter.getRandomInt(5);
 							if (bScore > aScore) {
-								c2.setEnergy(c2.getEnergy() + (c1.getEnergy() / 2));
+								c1.setEnergy(c1.getEnergy() + (c0.getEnergy() / 2));
+								c0.setEnergy(0);
+								myWorld.world[i][j].remove(c0);
+								population.remove(c0);
+								adults.remove(c0);
+							} else {
+								c0.setEnergy(c0.getEnergy() + (c1.getEnergy() / 2));
 								c1.setEnergy(0);
 								myWorld.world[i][j].remove(c1);
 								population.remove(c1);
-							} else {
-								c1.setEnergy(c1.getEnergy() + (c2.getEnergy() / 2));
-								c2.setEnergy(0);
-								myWorld.world[i][j].remove(c2);
-								population.remove(c2);
+								adults.remove(c1);
 							}
 						}
 					}
 				}
 			}
 		}
+		fightFlag = false;
 		Iterator<Critter> itr3 = population.iterator();
 		while(itr3.hasNext()) {
 			Critter tempCrit = itr3.next();
