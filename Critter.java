@@ -75,9 +75,9 @@ public abstract class Critter {
      * @param new_x_coord is the x coordinate of our simulated world.
      */
 	protected void setX(int foo) {
-		myWorld.world[this.getX()][this.getY()].remove(this);
+		myWorld.world[this.getY()][this.getX()].remove(this);
 		this.x_coord = foo;
-		myWorld.world[this.getX()][this.getY()].add(this);
+		myWorld.world[this.getY()][this.getX()].add(this);
 	}
     /**
      * setY_coord method.
@@ -85,9 +85,9 @@ public abstract class Critter {
      * @param new_y_coord is the y coordinate of our simulated world.
      */		
 	protected void setY(int foo) {
-		myWorld.world[this.getX()][this.getY()].remove(this);
+		myWorld.world[this.getY()][this.getX()].remove(this);
 		this.y_coord = foo;
-		myWorld.world[this.getX()][this.getY()].add(this);
+		myWorld.world[this.getY()][this.getX()].add(this);
 	}
 	/**
 	 * walk Method
